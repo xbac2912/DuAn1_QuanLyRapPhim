@@ -17,8 +17,17 @@ public class dbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Bảng account
-        String tb_account = "";
+        String tb_account = "CREATE TABLE account(" +
+                "matk INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "tennguoidung TEXT NOT NULL, " +
+                "email TEXT NOT NULL, " +
+                "matkhau TEXT NOT NULL, " +
+                "vaitro INTEGER NOT NULL)";
+        String data_account = "INSERT INTO account VALUES " +
+                "( 1, 'admin', 'admin@gmail.com', 'admin', 0)," +
+                "( 2, 'user', 'user@gmail.com', 'user', 1)";
         db.execSQL(tb_account);
+        db.execSQL(data_account);
     }
 
     @Override
