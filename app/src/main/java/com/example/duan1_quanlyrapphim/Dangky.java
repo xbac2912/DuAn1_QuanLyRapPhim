@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class Dangky extends AppCompatActivity {
-    private EditText ed_name, ed_email, ed_phone, ed_pass;
+    private EditText ed_name, ed_email, ed_cfpass, ed_pass;
     private TextView tv_login;
 
     @Override
@@ -19,7 +19,7 @@ public class Dangky extends AppCompatActivity {
 
         ed_name = findViewById(R.id.edt_name);
         ed_email = findViewById(R.id.edt_email);
-        ed_phone = findViewById(R.id.edt_phone);
+        ed_cfpass = findViewById(R.id.edt_cfpass);
         ed_pass = findViewById(R.id.edt_pass);
         tv_login = findViewById(R.id.tv_login);
 
