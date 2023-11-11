@@ -22,14 +22,10 @@ public class TrangChu_User extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu_user);
-        // Hiển thị Frg
+        // set hiển thị frgTrangChu
         fragment_trangchu fragmentTrangchu = new fragment_trangchu();
         replaceFrg(fragmentTrangchu);
-
-        Toolbar toolbar = findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setLogo(R.drawable.logo);
-
+        //
         bottomNavigationView = findViewById(R.id.nav_bottom_bar);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

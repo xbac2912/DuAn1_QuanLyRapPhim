@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,16 +14,25 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.duan1_quanlyrapphim.R;
-import com.example.duan1_quanlyrapphim.adapter.adapterTheLoai;
+import com.example.duan1_quanlyrapphim.adapter.adapterPhim_user;
+import com.example.duan1_quanlyrapphim.adapter.adapterTheLoai_user;
+import com.example.duan1_quanlyrapphim.dao.daoPhim;
+import com.example.duan1_quanlyrapphim.dao.daoTheLoai;
+import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
 
 import java.util.ArrayList;
 
 public class fragment_trangchu extends Fragment {
     ArrayList<SlideModel> imageList = new ArrayList<>();
-    ArrayList<TheLoai> list = new ArrayList<>();
+    ArrayList<TheLoai> listTL = new ArrayList<>();
+    ArrayList<Phim> listPhim = new ArrayList<>();
     RecyclerView rcvTheLoai;
-    adapterTheLoai adapterTheLoai;
+    RecyclerView rcvPhim;
+    adapterTheLoai_user adapterTheLoai;
+    adapterPhim_user adapterPhim;
+    daoTheLoai daoTheLoai;
+    daoPhim daoPhim;
     public fragment_trangchu() {
         // Required empty public constructor
     }
@@ -32,29 +42,29 @@ public class fragment_trangchu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_trangchu, container, false);
+        // slide show
         imageList.add(new SlideModel("https://i.ytimg.com/vi/fVWlCV9_n7w/maxresdefault.jpg", "The animal population decreased by 58 percent in 42 years.", ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel("https://i.ytimg.com/vi/2K8EpM-piDw/maxresdefault.jpg", "Elephants and tigers may become extinct.", ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel("https://i.ytimg.com/vi/Gah3ahVcCWQ/maxresdefault.jpg", "And people do that.", ScaleTypes.CENTER_CROP));
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
-        //
-        list.add(new TheLoai("Hành động"));
-        list.add(new TheLoai("Hoạt hình"));
-        list.add(new TheLoai("Lãng mạn"));
-        list.add(new TheLoai("Hành động"));
-        list.add(new TheLoai("Hoạt hình"));
-        list.add(new TheLoai("Lãng mạn"));
-        list.add(new TheLoai("Hành động"));
-        list.add(new TheLoai("Hoạt hình"));
-        list.add(new TheLoai("Lãng mạn"));
-
+        // the loai
+        daoTheLoai = new daoTheLoai(getContext());
+        listTL = daoTheLoai.selectAll();
         rcvTheLoai = view.findViewById(R.id.rcvTheLoai);
-        adapterTheLoai = new adapterTheLoai(getContext(), list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rcvTheLoai.setLayoutManager(layoutManager);
+        adapterTheLoai = new adapterTheLoai_user(getContext(), listTL);
+        LinearLayoutManager layoutManagerTL = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcvTheLoai.setLayoutManager(layoutManagerTL);
         rcvTheLoai.setAdapter(adapterTheLoai);
-
-
+        // tat ca phim
+        daoPhim = new daoPhim(getContext());
+        listPhim = daoPhim.selectAll();
+        rcvPhim = view.findViewById(R.id.rcvTatCaPhim);
+        adapterPhim = new adapterPhim_user(getContext(), listPhim);
+        GridLayoutManager layoutManagerPhim = new GridLayoutManager(getContext(), 3);
+        rcvPhim.setLayoutManager(layoutManagerPhim);
+        rcvPhim.setAdapter(adapterPhim);
+        //
         return view;
     }
 }
