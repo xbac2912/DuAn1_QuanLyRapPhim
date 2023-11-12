@@ -1,40 +1,40 @@
 package com.example.duan1_quanlyrapphim.model;
 
 public class TheLoai {
-    private int maTheLoai;
-    private String imgTheLoai;
+    private int maTL;
+    private String imgURL;
     private String tenTheLoai;
 
-    public TheLoai(int maTheLoai, String imgTheLoai, String tenTheLoai) {
-        this.maTheLoai = maTheLoai;
-        this.imgTheLoai = imgTheLoai;
+    public TheLoai(String imgURL, String tenTheLoai) {
+        this.imgURL = imgURL;
         this.tenTheLoai = tenTheLoai;
     }
 
-    public TheLoai() {
+    public int getMaTL() {
+        return maTL;
     }
 
-    public int getMaTheLoai() {
-        return maTheLoai;
+    public void setMaTL(int maTL) {
+        this.maTL = maTL;
     }
 
-    public void setMaTheLoai(int maTheLoai) {
-        this.maTheLoai = maTheLoai;
+    public String getImgURL() {
+        return imgURL;
     }
 
-    public String getImgTheLoai() {
-        return imgTheLoai;
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 
-    public void setImgTheLoai(String imgTheLoai) {
-        this.imgTheLoai = imgTheLoai;
-    }
-
-    public String getTenTheLoai() {
+    public String getTenTL() {
         return tenTheLoai;
     }
 
-    public void setTenTheLoai(String tenTheLoai) {
+    public void setTenTL(String tenTheLoai) {
+        this.tenTheLoai = tenTheLoai;
+    }
+
+    public TheLoai(String tenTheLoai) {
         this.tenTheLoai = tenTheLoai;
     }
 }
