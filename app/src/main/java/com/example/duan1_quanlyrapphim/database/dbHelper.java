@@ -24,7 +24,7 @@ public class dbHelper extends SQLiteOpenHelper {
                 "matkhau TEXT NOT NULL, " +
                 "vaitro INTEGER NOT NULL)";
         String data_account = "INSERT INTO account VALUES " +
-                "( 1, 'admin', 'admin@gmail.com', 'admin', 0)," +
+                "( 1, 'admin', 'admin@gmail.com', '123', 0)," +
                 "( 2, 'user', 'user@gmail.com', 'user', 1)";
         db.execSQL(tb_account);
         db.execSQL(data_account);

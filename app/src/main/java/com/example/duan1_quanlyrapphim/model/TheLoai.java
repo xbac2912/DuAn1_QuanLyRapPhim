@@ -5,7 +5,16 @@ public class TheLoai {
     private String imgURL;
     private String tenTheLoai;
 
+    public TheLoai() {
+    }
+
     public TheLoai(String imgURL, String tenTheLoai) {
+        this.imgURL = imgURL;
+        this.tenTheLoai = tenTheLoai;
+    }
+
+    public TheLoai(int maTL, String imgURL, String tenTheLoai) {
+        this.maTL = maTL;
         this.imgURL = imgURL;
         this.tenTheLoai = tenTheLoai;
     }

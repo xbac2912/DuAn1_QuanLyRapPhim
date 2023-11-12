@@ -36,8 +36,8 @@ public class adapterTheLoai_user extends RecyclerView.Adapter<adapterTheLoai_use
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvTenTheLoai.setText(list.get(position).getTenTheLoai());
-        Picasso.get().load(list.get(position).getImgTheLoai()).into(holder.imgTheLoai);
+        holder.tvTenTheLoai.setText(list.get(position).getTenTL());
+        Picasso.get().load(list.get(position).getImgURL()).into(holder.imgTheLoai);
     }
 
     @Override

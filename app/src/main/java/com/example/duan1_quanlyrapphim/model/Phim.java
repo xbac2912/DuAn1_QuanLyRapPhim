@@ -9,16 +9,19 @@ public class Phim {
     private String khoiChieu;
     private int maTheLoai;
 
+    private String tenTheLoai;
+
     public Phim() {
     }
 
-    public Phim(String imgPhim, String tenPhim, String moTa, int giaVe, String khoiChieu, int maTheLoai) {
+    public Phim(String imgPhim, String tenPhim, String moTa, int giaVe, String khoiChieu, int maTheLoai, String tenTheLoai) {
         this.imgPhim = imgPhim;
         this.tenPhim = tenPhim;
         this.moTa = moTa;
         this.giaVe = giaVe;
         this.khoiChieu = khoiChieu;
         this.maTheLoai = maTheLoai;
+        this.tenTheLoai = tenTheLoai;
     }
 
     public Phim(String imgPhim, String tenPhim) {
@@ -80,5 +83,11 @@ public class Phim {
 
     public void setMaTheLoai(int maTheLoai) {
         this.maTheLoai = maTheLoai;
+    }
+    public String getTenTheLoai(){
+        return tenTheLoai;
+    }
+    public void setTenTheLoai(String tenTheLoai){
+        this.tenTheLoai = tenTheLoai;
     }
 }

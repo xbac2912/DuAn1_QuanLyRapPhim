@@ -16,6 +16,7 @@ import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.ArrayList;
 
 public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.ViewHolder> {
