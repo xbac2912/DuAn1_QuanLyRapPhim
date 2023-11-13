@@ -29,9 +29,9 @@ public class daoTheLoai {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
                     TheLoai theloai = new TheLoai();
-                    theloai.setMaTheLoai(cursor.getInt(0));
-                    theloai.setImgTheLoai(cursor.getString(1));
-                    theloai.setTenTheLoai(cursor.getString(2));
+                    theloai.setMaTL(cursor.getInt(0));
+                    theloai.setImgURL(cursor.getString(1));
+                    theloai.setTenTL(cursor.getString(2));
                     list.add(theloai);
                     cursor.moveToNext();
                 }
@@ -44,19 +44,19 @@ public class daoTheLoai {
     public boolean insert(TheLoai tl) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("matheloai", tl.getMaTheLoai());
-        values.put("imgtheloai", tl.getImgTheLoai());
-        values.put("tentheloai", tl.getTenTheLoai());
+        values.put("matheloai", tl.getMaTL());
+        values.put("imgtheloai", tl.getImgURL());
+        values.put("tentheloai", tl.getTenTL());
         long row = db.insert("theloai", null, values);
         return (row > 0);
     }
     public boolean update(TheLoai tl) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("matheloai", tl.getMaTheLoai());
-        values.put("imgtheloai", tl.getImgTheLoai());
-        values.put("tentheloai", tl.getTenTheLoai());
-        long row = db.update("theloai", values, "matheloai = ?", new String[]{String.valueOf(tl.getMaTheLoai())});
+        values.put("matheloai", tl.getMaTL());
+        values.put("imgtheloai", tl.getImgURL());
+        values.put("tentheloai", tl.getTenTL());
+        long row = db.update("theloai", values, "matheloai = ?", new String[]{String.valueOf(tl.getMaTL())});
         return (row > 0);
     }
 }
