@@ -5,14 +5,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.fragment_QLP">
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        android:background="@drawable/timkiemstyle"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:queryHint="Tìm Kiếm..."
+        android:background="@drawable/timkiemstyle"
+        app:iconifiedByDefault="false" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvPhim"
         android:layout_width="wrap_content"

@@ -24,7 +24,7 @@ public class daoPhim {
         ArrayList<Phim> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM phim", null);
+            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai", null);
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
@@ -36,6 +36,7 @@ public class daoPhim {
                     phim.setGiaVe(cursor.getInt(4));
                     phim.setKhoiChieu(cursor.getString(5));
                     phim.setMaTheLoai(cursor.getInt(6));
+                    phim.setTenTheLoai(cursor.getString(9));
                     list.add(phim);
                     cursor.moveToNext();
                 }
@@ -49,7 +50,7 @@ public class daoPhim {
         ArrayList<Phim> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT DISTINCT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
+            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
