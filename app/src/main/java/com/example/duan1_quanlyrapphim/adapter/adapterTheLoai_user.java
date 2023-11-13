@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.duan1_quanlyrapphim.Dangnhap;
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.TimKiemTheLoai;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
-import com.example.duan1_quanlyrapphim.quanLyTheLoai;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,17 +40,16 @@ public class adapterTheLoai_user extends RecyclerView.Adapter<adapterTheLoai_use
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.tvTenTheLoai.setText(list.get(position).getTenTheLoai());
-        Picasso.get().load(list.get(position).getImgTheLoai()).into(holder.imgTheLoai);
+        holder.tvTenTheLoai.setText(list.get(position).getTenTL());
+        Picasso.get().load(list.get(position).getImgURL()).into(holder.imgTheLoai);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TimKiemTheLoai.class);
-                intent.putExtra("theLoai", String.valueOf(list.get(position).getMaTheLoai()));
+                intent.putExtra("theLoai", String.valueOf(list.get(position).getMaTL()));
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

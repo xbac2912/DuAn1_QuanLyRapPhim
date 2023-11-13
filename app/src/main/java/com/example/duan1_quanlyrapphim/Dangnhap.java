@@ -40,9 +40,12 @@ public class Dangnhap extends AppCompatActivity {
                     Intent intent = new Intent(Dangnhap.this, TrangChu_User.class);
                     startActivity(intent);
                     Toast.makeText(Dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                } else if (daoTaiKhoan.checklogin(email, pass, 0)) {
+                    Intent intent = new Intent(Dangnhap.this, TrangChu_Admin.class);
+                    startActivity(intent);
+                    Toast.makeText(Dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Dangnhap.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
