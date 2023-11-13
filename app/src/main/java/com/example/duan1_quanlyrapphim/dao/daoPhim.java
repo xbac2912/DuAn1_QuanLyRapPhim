@@ -45,6 +45,32 @@ public class daoPhim {
         }
         return list;
     }
+    public ArrayList<Phim> selectPhimTheoTheLoai(String maTheLoai) {
+        ArrayList<Phim> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT DISTINCT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    Phim phim = new Phim();
+//                    phim.setMaPhim(cursor.getInt(0));
+                    phim.setImgPhim(cursor.getString(1));
+                    phim.setTenPhim(cursor.getString(2));
+//                    phim.setMoTa(cursor.getString(3));
+                    phim.setGiaVe(cursor.getInt(4));
+                    phim.setKhoiChieu(cursor.getString(5));
+//                    phim.setMaTheLoai(cursor.getInt(6));
+                    phim.setTenTheLoai(cursor.getString(9));
+                    list.add(phim);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list;
+    }
     public boolean insert(Phim phim) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -70,5 +96,22 @@ public class daoPhim {
         values.put("matheloai", phim.getMaTheLoai());
         long row = db.update("phim", values, "maphim = ?", new String[]{String.valueOf(phim.getMaPhim())});
         return (row > 0);
+    }
+    String tenLoai;
+    public String getTenTheLoai(String maTheLoai) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT tentheloai FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    tenLoai = cursor.getString(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return tenLoai;
     }
 }

@@ -9,6 +9,16 @@ public class Phim {
     private String khoiChieu;
     private int maTheLoai;
 
+    public String getTenTheLoai() {
+        return tenTheLoai;
+    }
+
+    public void setTenTheLoai(String tenTheLoai) {
+        this.tenTheLoai = tenTheLoai;
+    }
+
+    private String tenTheLoai;
+
     public Phim() {
     }
 

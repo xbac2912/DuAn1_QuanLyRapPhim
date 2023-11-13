@@ -1,7 +1,10 @@
 package com.example.duan1_quanlyrapphim.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1_quanlyrapphim.Dangnhap;
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.TimKiemTheLoai;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
+import com.example.duan1_quanlyrapphim.quanLyTheLoai;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,9 +42,18 @@ public class adapterTheLoai_user extends RecyclerView.Adapter<adapterTheLoai_use
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvTenTheLoai.setText(list.get(position).getTenTheLoai());
         Picasso.get().load(list.get(position).getImgTheLoai()).into(holder.imgTheLoai);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TimKiemTheLoai.class);
+                intent.putExtra("theLoai", String.valueOf(list.get(position).getMaTheLoai()));
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -48,10 +64,12 @@ public class adapterTheLoai_user extends RecyclerView.Adapter<adapterTheLoai_use
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTenTheLoai;
         ImageView imgTheLoai;
+        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTenTheLoai = itemView.findViewById(R.id.tvTenTheLoai);
             imgTheLoai = itemView.findViewById(R.id.imgTheLoai);
+            cardView = itemView.findViewById(R.id.card_view);
         }
     }
 }
