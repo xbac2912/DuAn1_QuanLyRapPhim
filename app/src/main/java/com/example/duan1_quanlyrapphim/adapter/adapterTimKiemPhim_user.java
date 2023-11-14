@@ -1,7 +1,9 @@
 package com.example.duan1_quanlyrapphim.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.XacNhanDatVe;
 import com.example.duan1_quanlyrapphim.model.Phim;
 import com.squareup.picasso.Picasso;
 
@@ -35,12 +39,20 @@ public class adapterTimKiemPhim_user extends RecyclerView.Adapter<adapterTimKiem
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.get().load(list.get(position).getImgPhim()).into(holder.imgPhim);
         holder.tvTenPhim.setText(list.get(position).getTenPhim());
         holder.tvTheLoai.setText(list.get(position).getTenTheLoai());
         holder.tvGiaVe.setText(String.valueOf(list.get(position).getGiaVe()));
         holder.tvGioChieu.setText(list.get(position).getKhoiChieu());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, XacNhanDatVe.class);
+                intent.putExtra("maPhim", String.valueOf(list.get(position).getMaPhim()));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,6 +63,7 @@ public class adapterTimKiemPhim_user extends RecyclerView.Adapter<adapterTimKiem
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTenPhim, tvTheLoai, tvGiaVe, tvGioChieu;
         ImageView imgPhim;
+        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPhim = itemView.findViewById(R.id.imgAnhPhim);
@@ -58,6 +71,7 @@ public class adapterTimKiemPhim_user extends RecyclerView.Adapter<adapterTimKiem
             tvTheLoai = itemView.findViewById(R.id.txtTheLoai);
             tvGiaVe = itemView.findViewById(R.id.txtGiaVe);
             tvGioChieu = itemView.findViewById(R.id.txtGioChieu);
+            cardView = itemView.findViewById(R.id.card_view);
         }
     }
 }
