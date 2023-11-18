@@ -27,6 +27,7 @@ public class TrangChu_Admin extends AppCompatActivity {
         replaceFrg(fragmentQLTL);
         //
         bottomNavigationView = findViewById(R.id.nav_bottom_bar);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
