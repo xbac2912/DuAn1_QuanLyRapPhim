@@ -3,11 +3,12 @@ package com.example.duan1_quanlyrapphim.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,19 +16,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
-import com.example.duan1_quanlyrapphim.XacNhanDatVe;
 import com.example.duan1_quanlyrapphim.model.Phim;
-import com.example.duan1_quanlyrapphim.model.TheLoai;
-import com.squareup.picasso.Picasso;
-
 
 import java.util.ArrayList;
 
-public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.ViewHolder> {
+public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.ViewHolder> {
     private final Context context;
     private final ArrayList<Phim> list;
 
-    public adapterPhim_user(Context context, ArrayList<Phim> list) {
+    public adapterNgayChieu(Context context, ArrayList<Phim> list) {
         this.context = context;
         this.list = list;
     }
@@ -36,21 +33,17 @@ public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_theloai_user, null);
-        return new adapterPhim_user.ViewHolder(view);
+        View view = inflater.inflate(R.layout.item_ngaychieu, null);
+        return new adapterNgayChieu.ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.tvTenPhim.setTextSize(10);
-        holder.tvTenPhim.setText(list.get(position).getTenPhim());
-        Picasso.get().load(list.get(position).getImgPhim()).into(holder.imgPhim);
+
+        holder.tvNgayChieu.setText(String.valueOf(list.get(position).getKhoiChieu()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, XacNhanDatVe.class);
-                intent.putExtra("maPhim", String.valueOf(list.get(position).getMaPhim()));
-                context.startActivity(intent);
+                holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
             }
         });
     }
@@ -61,14 +54,14 @@ public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenPhim;
-        ImageView imgPhim;
+        TextView tvNgayChieu;
         CardView cardView;
+        LinearLayout layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTenPhim = itemView.findViewById(R.id.tvTenTheLoai);
-            imgPhim = itemView.findViewById(R.id.imgTheLoai);
+            tvNgayChieu = itemView.findViewById(R.id.tvNgayChieu);
             cardView = itemView.findViewById(R.id.card_view);
+            layout = itemView.findViewById(R.id.line1);
         }
     }
 }

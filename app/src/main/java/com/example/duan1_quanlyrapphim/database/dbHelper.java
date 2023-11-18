@@ -48,7 +48,7 @@ public class dbHelper extends SQLiteOpenHelper {
                 "mota TEXT NOT NULL, " +
                 "giave INTEGER NOT NULL, " +
                 "khoichieu TEXT NOT NULL, " +
-                "matheloai TEXT REFERENCES theloai(matheloai))";
+                "matheloai INTEGER REFERENCES theloai(matheloai))";
         String data_phim = "INSERT INTO phim VALUES " +
                 "( 1, 'https://i.ytimg.com/vi/fVWlCV9_n7w/maxresdefault.jpg', 'Hành Động', 'Phim hay', 100000, '2023/12/29', 1)," +
                 "( 2, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình', 'Phim hay', 600000, '2023/12/28', 2)," +
@@ -67,6 +67,17 @@ public class dbHelper extends SQLiteOpenHelper {
                 "( 15, 'https://bapcai.vn/wp-content/uploads/2021/07/truyen-hai-huoc-8.jpg', 'Hài Hước', 'Phim hay', 90000, '2023/12/23', 4)";
         db.execSQL(tb_phim);
         db.execSQL(data_phim);
+        //Bảng ngày chiếu
+        String tb_phong = "CREATE TABLE phong(" +
+                "matheloai INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "sophong INTEGER NOT NULL)";
+        String data_phong = "INSERT INTO phong VALUES " +
+                "( 1, 'Phòng 1')," +
+                "( 2, 'Phòng 2')," +
+                "( 3, 'Phòng 3')," +
+                "( 4, 'Phòng 4')";
+        db.execSQL(tb_phong);
+        db.execSQL(data_phong);
     }
 
     @Override

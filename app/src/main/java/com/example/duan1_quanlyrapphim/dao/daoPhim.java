@@ -55,13 +55,13 @@ public class daoPhim {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
                     Phim phim = new Phim();
-//                    phim.setMaPhim(cursor.getInt(0));
+                    phim.setMaPhim(cursor.getInt(0));
                     phim.setImgPhim(cursor.getString(1));
                     phim.setTenPhim(cursor.getString(2));
-//                    phim.setMoTa(cursor.getString(3));
+                    phim.setMoTa(cursor.getString(3));
                     phim.setGiaVe(cursor.getInt(4));
                     phim.setKhoiChieu(cursor.getString(5));
-//                    phim.setMaTheLoai(cursor.getInt(6));
+                    phim.setMaTheLoai(cursor.getInt(6));
                     phim.setTenTheLoai(cursor.getString(9));
                     list.add(phim);
                     cursor.moveToNext();
@@ -114,5 +114,50 @@ public class daoPhim {
             Log.i(TAG, "Lỗi" + e);
         }
         return tenLoai;
+    }
+//    public ArrayList<Phim> getKhoiChieu(String maPhim) {
+//        ArrayList<Phim> list = new ArrayList<>();
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        try {
+//            Cursor cursor =db.rawQuery("SELECT khoichieu FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
+//            if (cursor.getCount() > 0) {
+//                cursor.moveToFirst();
+//                while (!cursor.isAfterLast()) {
+//                    Phim phim = new Phim();
+//                    phim.setKhoiChieu(cursor.getString(0));
+//                    list.add(phim);
+//                    cursor.moveToNext();
+//                }
+//            }
+//        } catch (Exception e) {
+//            Log.i(TAG, "Lỗi" + e);
+//        }
+//        return list;
+//    }
+    public ArrayList<Phim> selectKhoiChieu(String maPhim) {
+        ArrayList<Phim> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT * FROM phim WHERE phim.maphim = ?", new String[]{maPhim});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    Phim phim = new Phim();
+                    phim.setMaPhim(cursor.getInt(0));
+                    phim.setImgPhim(cursor.getString(1));
+                    phim.setTenPhim(cursor.getString(2));
+                    phim.setMoTa(cursor.getString(3));
+                    phim.setGiaVe(cursor.getInt(4));
+                    phim.setKhoiChieu(cursor.getString(5));
+                    phim.setMaTheLoai(cursor.getInt(6));
+                    phim.setTenTheLoai(cursor.getString(9));
+                    list.add(phim);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list;
     }
 }
