@@ -16,13 +16,14 @@ import java.util.ArrayList;
 
 public class daoTheLoai {
     private final dbHelper dbHelper;
+    SQLiteDatabase db;
 
     public daoTheLoai(Context context) {
         dbHelper = new dbHelper(context);
     }
     public ArrayList<TheLoai> selectAll() {
         ArrayList<TheLoai> list = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        db = dbHelper.getReadableDatabase();
         try {
             Cursor cursor =db.rawQuery("SELECT * FROM theloai", null);
             if (cursor.getCount() > 0) {
@@ -42,21 +43,26 @@ public class daoTheLoai {
         return list;
     }
     public boolean insert(TheLoai tl) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("matheloai", tl.getMaTL());
         values.put("imgtheloai", tl.getImgURL());
         values.put("tentheloai", tl.getTenTL());
         long row = db.insert("theloai", null, values);
         return (row > 0);
     }
     public boolean update(TheLoai tl) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("matheloai", tl.getMaTL());
         values.put("imgtheloai", tl.getImgURL());
         values.put("tentheloai", tl.getTenTL());
         long row = db.update("theloai", values, "matheloai = ?", new String[]{String.valueOf(tl.getMaTL())});
         return (row > 0);
+    }
+
+    public long delete(int id) {
+        db = dbHelper.getWritableDatabase();
+        long check = db.delete("theloai", "matheloai=?", new String[]{String.valueOf(id)});
+        return check;
     }
 }
