@@ -38,6 +38,7 @@ public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.View
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
         holder.tvNgayChieu.setText(String.valueOf(list.get(position).getKhoiChieu()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

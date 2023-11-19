@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.duan1_quanlyrapphim.fragment.fragment_QLP;
+import com.example.duan1_quanlyrapphim.fragment.fragment_ql_taikhoan;
 import com.example.duan1_quanlyrapphim.fragment.fragment_taikhoan;
 import com.example.duan1_quanlyrapphim.fragment.fragment_trangchu;
 import com.example.duan1_quanlyrapphim.fragment.fragment_vecuatoi;
@@ -27,6 +28,7 @@ public class TrangChu_Admin extends AppCompatActivity {
         replaceFrg(fragmentQLTL);
         //
         bottomNavigationView = findViewById(R.id.nav_bottom_bar);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -44,7 +46,7 @@ public class TrangChu_Admin extends AppCompatActivity {
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Tài khoản", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_tai_khoan) {
-                    fragment = new fragment_taikhoan();
+                    fragment = new fragment_ql_taikhoan();
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Tài khoản", Toast.LENGTH_SHORT).show();
                 }
