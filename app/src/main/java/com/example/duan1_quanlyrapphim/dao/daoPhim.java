@@ -24,7 +24,7 @@ public class daoPhim {
         ArrayList<Phim> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai", null);
+            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.trangthai=0", null);
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
