@@ -9,6 +9,10 @@
         android:title="Phim"
         android:icon="@drawable/icontheloai"/>
     <item
+        android:id="@+id/nav_khung_gio"
+        android:title="Khung Giờ"
+        android:icon="@drawable/icontheloai"/>
+    <item
         android:id="@+id/nav_ve_xem"
         android:title="Vé Xem"
         android:icon="@drawable/iconlichsu"/>

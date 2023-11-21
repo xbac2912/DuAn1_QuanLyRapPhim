@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

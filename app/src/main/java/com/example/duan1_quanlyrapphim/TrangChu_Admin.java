@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.duan1_quanlyrapphim.fragment.fragment_QLKG;
 import com.example.duan1_quanlyrapphim.fragment.fragment_QLP;
 import com.example.duan1_quanlyrapphim.fragment.fragment_ql_taikhoan;
 import com.example.duan1_quanlyrapphim.fragment.fragment_taikhoan;
@@ -36,15 +37,19 @@ public class TrangChu_Admin extends AppCompatActivity {
                 if (item.getItemId() == R.id.nav_the_loai) {
                     fragment = new quanLyTheLoai();
                     replaceFrg(fragment);
-                    Toast.makeText(TrangChu_Admin.this, "Trang Chủ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrangChu_Admin.this, "Thể loại", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_phim) {
                     fragment = new fragment_QLP();
                     replaceFrg(fragment);
-                    Toast.makeText(TrangChu_Admin.this, "Lịch sử", Toast.LENGTH_SHORT).show();
-                }  else if (item.getItemId() == R.id.nav_ve_xem) {
+                    Toast.makeText(TrangChu_Admin.this, "Phim", Toast.LENGTH_SHORT).show();
+                } else if (item.getItemId() == R.id.nav_khung_gio) {
+                    fragment = new fragment_QLKG();
+                    replaceFrg(fragment);
+                    Toast.makeText(TrangChu_Admin.this, "Khung giờ", Toast.LENGTH_SHORT).show();
+                } else if (item.getItemId() == R.id.nav_ve_xem) {
                     fragment = new fragment_taikhoan();
                     replaceFrg(fragment);
-                    Toast.makeText(TrangChu_Admin.this, "Tài khoản", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrangChu_Admin.this, "Vé", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_tai_khoan) {
                     fragment = new fragment_ql_taikhoan();
                     replaceFrg(fragment);

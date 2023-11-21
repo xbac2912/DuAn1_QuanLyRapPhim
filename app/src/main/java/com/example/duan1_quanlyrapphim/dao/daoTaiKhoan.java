@@ -23,7 +23,7 @@ public class daoTaiKhoan {
         ArrayList<TaiKhoan> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM account", null);
+            Cursor cursor =db.rawQuery("SELECT * FROM account WHERE account.vaitro=1", null);
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {

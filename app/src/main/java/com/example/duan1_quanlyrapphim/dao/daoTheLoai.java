@@ -65,4 +65,21 @@ public class daoTheLoai {
         long check = db.delete("theloai", "matheloai=?", new String[]{String.valueOf(id)});
         return check;
     }
+    int row;
+    public int getMaLoai(String tenLoai) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT matheloai FROM theloai WHERE theloai.tentheloai = ?", new String[] {tenLoai});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    row = cursor.getInt(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return row;
+    }
 }

@@ -67,9 +67,9 @@ public class XacNhanDatVe extends AppCompatActivity {
         rcvSoGhe.setAdapter(adapterSoGhe);
         //
         rcvNgayChieu = findViewById(R.id.rcvNgayChieu);
-        adapterNgayChieu = new adapterNgayChieu(this, listP);
         String maPhim = getIntent().getStringExtra("maPhim");
         listP = daoPhim.selectKhoiChieu(maPhim);
+        adapterNgayChieu = new adapterNgayChieu(this, listP);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rcvNgayChieu.setLayoutManager(linearLayoutManager);
         rcvNgayChieu.setAdapter(adapterNgayChieu);

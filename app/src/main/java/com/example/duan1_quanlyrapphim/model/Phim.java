@@ -7,6 +7,8 @@ public class Phim {
     private String moTa;
     private int giaVe;
     private String khoiChieu;
+    private int trangThai;
+
     private int maTheLoai;
 
     public String getTenTheLoai() {
@@ -22,6 +24,16 @@ public class Phim {
     public Phim() {
     }
 
+    public Phim(String imgPhim, String tenPhim, String moTa, int giaVe, String khoiChieu, int trangThai, int maTheLoai) {
+        this.imgPhim = imgPhim;
+        this.tenPhim = tenPhim;
+        this.moTa = moTa;
+        this.giaVe = giaVe;
+        this.khoiChieu = khoiChieu;
+        this.trangThai = trangThai;
+        this.maTheLoai = maTheLoai;
+    }
+
     public Phim(String imgPhim, String tenPhim, String moTa, int giaVe, String khoiChieu, int maTheLoai) {
         this.imgPhim = imgPhim;
         this.tenPhim = tenPhim;
@@ -29,6 +41,14 @@ public class Phim {
         this.giaVe = giaVe;
         this.khoiChieu = khoiChieu;
         this.maTheLoai = maTheLoai;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     public Phim(String imgPhim, String tenPhim) {

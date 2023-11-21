@@ -1,18 +1,32 @@
 package com.example.duan1_quanlyrapphim.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.dao.daoPhim;
+import com.example.duan1_quanlyrapphim.dao.daoTheLoai;
 import com.example.duan1_quanlyrapphim.model.Phim;
+import com.example.duan1_quanlyrapphim.model.TheLoai;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,10 +34,18 @@ import java.util.ArrayList;
 public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.ViewHolder> {
     private final Context context;
     private final ArrayList<Phim> list;
+    EditText txtAnhPhim, txtTenPhim, txtMoTa, txtGiaVe, txtKhoiChieu;
+    Spinner spnLoaiPhim;
+    com.example.duan1_quanlyrapphim.dao.daoTheLoai daoTheLoai;
+    daoPhim daoPhim;
+    int maTheLoai;
+    Phim phim;
 
     public adapterPhim_admin(Context context, ArrayList<Phim> list) {
         this.context = context;
         this.list = list;
+        daoTheLoai = new daoTheLoai(context);
+        daoPhim = new daoPhim(context);
     }
 
     @NonNull
@@ -35,13 +57,50 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Picasso.get().load(list.get(position).getImgPhim()).into(holder.imgPhim);
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Picasso
+                .get()
+                .load(list.get(position).getImgPhim())
+                .error(R.drawable.loihinhanh)
+                .into(holder.imgPhim);
         holder.tvTenPhim.setText(list.get(position).getTenPhim());
         holder.tvMoTa.setText(list.get(position).getMoTa());
         holder.tvTheLoai.setText(list.get(position).getTenTheLoai());
         holder.tvGiaVe.setText(String.valueOf(list.get(position).getGiaVe()));
         holder.tvGioChieu.setText(list.get(position).getKhoiChieu());
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phim = list.get(position);
+                OpenDialog_Update();
+            }
+        });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phim = list.get(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setIcon(R.drawable.warning);
+                builder.setTitle("Warning");
+                builder.setMessage("Bạn có chắc chắn muốn xóa không ?");
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        daoPhim.DeleteRow(phim);
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                Dialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     @Override
@@ -64,5 +123,77 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
             btnEdit = itemView.findViewById(R.id.btnEdit);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }
+    }
+    public void OpenDialog_Update() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_phim, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        view.findViewById(R.id.tvThemPhim).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.tvUpdatePhim).setVisibility(View.VISIBLE);
+        txtAnhPhim = view.findViewById(R.id.txtAnhPhim);
+        txtTenPhim = view.findViewById(R.id.txtTenPhim);
+        txtMoTa = view.findViewById(R.id.txtMoTa);
+        txtGiaVe = view.findViewById(R.id.txtGiaVe);
+        txtKhoiChieu = view.findViewById(R.id.txtKhoiChieu);
+        spnLoaiPhim = view.findViewById(R.id.spnLoaiPhim);
+        ArrayList<TheLoai> listL = new ArrayList<>();
+        listL = daoTheLoai.selectAll();
+        ArrayList<String> theLoaiArr = new ArrayList<>();
+        for (TheLoai x: listL) {
+            theLoaiArr.add(x.getTenTL());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, theLoaiArr);
+        spnLoaiPhim.setAdapter(adapter);
+        spnLoaiPhim.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                maTheLoai = daoTheLoai.getMaLoai(String.valueOf(theLoaiArr.get(position)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        txtAnhPhim.setText(phim.getImgPhim());
+        txtTenPhim.setText(phim.getTenPhim());
+        txtMoTa.setText(phim.getMoTa());
+        txtGiaVe.setText(String.valueOf(phim.getGiaVe()));
+        txtKhoiChieu.setText(phim.getKhoiChieu());
+        view.findViewById(R.id.btnThem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String anhPhim = txtAnhPhim.getText().toString();
+                String tenPhim = txtTenPhim.getText().toString().trim();
+                String moTa = txtMoTa.getText().toString().trim();
+                String giaVe = txtGiaVe.getText().toString().trim();
+                String khoiChieu = txtKhoiChieu.getText().toString().trim();
+                //
+                phim.setImgPhim(anhPhim);
+                phim.setTenPhim(tenPhim);
+                phim.setMoTa(moTa);
+                phim.setGiaVe(Integer.valueOf(giaVe));
+                phim.setKhoiChieu(khoiChieu);
+                phim.setMaTheLoai(maTheLoai);
+                //
+                if (daoPhim.update(phim)) {
+                    dialog.dismiss();
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        view.findViewById(R.id.btnHuy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }
