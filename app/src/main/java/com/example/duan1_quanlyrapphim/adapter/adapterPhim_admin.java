@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
     private final Context context;
     private final ArrayList<Phim> list;
     EditText txtAnhPhim, txtTenPhim, txtMoTa, txtGiaVe, txtKhoiChieu;
+    TextView tvTieuDe;
     Spinner spnLoaiPhim;
     com.example.duan1_quanlyrapphim.dao.daoTheLoai daoTheLoai;
     daoPhim daoPhim;
@@ -88,6 +90,8 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
                     public void onClick(DialogInterface dialog, int which) {
                         daoPhim.DeleteRow(phim);
                         Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        list.clear();
+                        list.addAll(daoPhim.selectAll());
                         notifyDataSetChanged();
                     }
                 });
@@ -132,8 +136,8 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        view.findViewById(R.id.tvThemPhim).setVisibility(View.INVISIBLE);
-        view.findViewById(R.id.tvUpdatePhim).setVisibility(View.VISIBLE);
+        tvTieuDe = view.findViewById(R.id.tvThemPhim);
+        tvTieuDe.setText("Update");
         txtAnhPhim = view.findViewById(R.id.txtAnhPhim);
         txtTenPhim = view.findViewById(R.id.txtTenPhim);
         txtMoTa = view.findViewById(R.id.txtMoTa);
@@ -159,12 +163,19 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
 
             }
         });
+        for (int i = 0; i < theLoaiArr.size(); i++) {
+            if (theLoaiArr.get(i).toString().equals(phim.getTenTheLoai())) {
+                spnLoaiPhim.setSelection(i);
+            }
+        }
         txtAnhPhim.setText(phim.getImgPhim());
         txtTenPhim.setText(phim.getTenPhim());
         txtMoTa.setText(phim.getMoTa());
         txtGiaVe.setText(String.valueOf(phim.getGiaVe()));
         txtKhoiChieu.setText(phim.getKhoiChieu());
-        view.findViewById(R.id.btnThem).setOnClickListener(new View.OnClickListener() {
+        Button btnThem = view.findViewById(R.id.btnThem);
+        btnThem.setText("Update");
+        btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String anhPhim = txtAnhPhim.getText().toString();
@@ -181,9 +192,11 @@ public class adapterPhim_admin extends RecyclerView.Adapter<adapterPhim_admin.Vi
                 phim.setMaTheLoai(maTheLoai);
                 //
                 if (daoPhim.update(phim)) {
-                    dialog.dismiss();
+                    list.clear();
+                    list.addAll(daoPhim.selectAll());
                     notifyDataSetChanged();
                     Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 } else {
                     Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                 }

@@ -3,7 +3,6 @@ package com.example.duan1_quanlyrapphim.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -11,30 +10,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.duan1_quanlyrapphim.MainActivity;
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.XacNhanDatVe;
-import com.example.duan1_quanlyrapphim.dao.daoLichChieu;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
-import com.example.duan1_quanlyrapphim.model.Phim;
 
 import java.util.ArrayList;
 
-public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.ViewHolder> {
+public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHolder>{
     private final Context context;
     private final ArrayList<LichChieu> list;
     private final XacNhanDatVe xacNhanDatVe;
 
-
-    public adapterNgayChieu(Context context, ArrayList<LichChieu> list, Activity activity) {
+    public AdapterKhungGio(Context context, ArrayList<LichChieu> list, Activity activity) {
         this.context = context;
         this.list = list;
-        xacNhanDatVe = (XacNhanDatVe) activity;
+        xacNhanDatVe  = (XacNhanDatVe) activity;
     }
 
     @NonNull
@@ -42,14 +38,15 @@ public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         View view = inflater.inflate(R.layout.item_ngaychieu, null);
-        return new adapterNgayChieu.ViewHolder(view);
+        return new ViewHolder(view);
     }
     int check = 0;
     int viTri = 0;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
-        holder.tvNgayChieu.setText(String.valueOf(list.get(position).getNgayChieu()));
+        holder.tvNgayChieu.setText(String.valueOf(list.get(position).getKhungGio()));
+        holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
+        check = 0;
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,12 +54,14 @@ public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.View
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
                     check++;
                     viTri = list.get(position).getMaLichChieu();
-                    xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), String.valueOf(list.get(position).getNgayChieu()));
+                    xacNhanDatVe.getSoGhe(String.valueOf(list.get(position).getMaLichChieu()));
+                    Toast.makeText(context, "Khung giờ: " + list.get(position).getMaKhungGio(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, String.valueOf(viTri), Toast.LENGTH_SHORT).show();
                 } else if (check != 0 && viTri == list.get(position).getMaLichChieu()) {
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
                     check = 0;
                     viTri = 0;
-                    xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), "");
+                    xacNhanDatVe.getSoGhe("");
                 }
             }
         });

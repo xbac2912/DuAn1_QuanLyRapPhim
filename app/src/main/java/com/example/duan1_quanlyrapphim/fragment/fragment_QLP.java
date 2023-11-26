@@ -114,10 +114,9 @@ public class fragment_QLP extends Fragment {
                 String moTa = txtMoTa.getText().toString().trim();
                 String giaVe = txtGiaVe.getText().toString().trim();
                 String khoiChieu = txtKhoiChieu.getText().toString().trim();
-                if (Patterns.WEB_URL.matcher(anhPhim).matches()) {
-                    Toast.makeText(getContext(), "URL sai định dạng", Toast.LENGTH_SHORT).show();
-                } else
                 if (daoPhim.insert(new Phim(anhPhim, tenPhim, moTa, Integer.valueOf(giaVe), khoiChieu, 0, maTheLoai))) {
+                    list.clear();
+                    list.addAll(daoPhim.selectAll());
                     dialog.dismiss();
                     adapterPhim_admin.notifyDataSetChanged();
                     Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();

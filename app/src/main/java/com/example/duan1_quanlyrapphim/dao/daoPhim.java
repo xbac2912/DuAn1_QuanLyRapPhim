@@ -51,7 +51,7 @@ public class daoPhim {
         ArrayList<Phim> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
+            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=? AND phim.trangthai=0", new String[]{String.valueOf(maTheLoai)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
@@ -83,6 +83,7 @@ public class daoPhim {
         values.put("mota", phim.getMoTa());
         values.put("giave", phim.getGiaVe());
         values.put("khoichieu", phim.getKhoiChieu());
+        values.put("trangthai", phim.getTrangThai());
         values.put("matheloai", phim.getMaTheLoai());
         long row = db.insert("phim", null, values);
         return (row > 0);
@@ -117,49 +118,49 @@ public class daoPhim {
         }
         return tenLoai;
     }
-//    public ArrayList<Phim> getKhoiChieu(String maPhim) {
-//        ArrayList<Phim> list = new ArrayList<>();
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//        try {
-//            Cursor cursor =db.rawQuery("SELECT khoichieu FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
-//            if (cursor.getCount() > 0) {
-//                cursor.moveToFirst();
-//                while (!cursor.isAfterLast()) {
-//                    Phim phim = new Phim();
-//                    phim.setKhoiChieu(cursor.getString(0));
-//                    list.add(phim);
-//                    cursor.moveToNext();
-//                }
-//            }
-//        } catch (Exception e) {
-//            Log.i(TAG, "Lỗi" + e);
-//        }
-//        return list;
-//    }
-    public ArrayList<Phim> selectKhoiChieu(String maPhim) {
-        ArrayList<Phim> list = new ArrayList<>();
+    public int DeleteRow(Phim phim) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("trangthai", 1);
+
+        String[] index = new String[]{
+                String.valueOf(phim.getMaPhim())
+
+        };
+        return db.update("phim", values, "maphim=?", index);
+    }
+    String tenPhim;
+    public String getTenPhim(String maPhim) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM phim WHERE phim.maphim = ?", new String[]{maPhim});
+            Cursor cursor =db.rawQuery("SELECT tenphim FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    Phim phim = new Phim();
-                    phim.setMaPhim(cursor.getInt(0));
-                    phim.setImgPhim(cursor.getString(1));
-                    phim.setTenPhim(cursor.getString(2));
-                    phim.setMoTa(cursor.getString(3));
-                    phim.setGiaVe(cursor.getInt(4));
-                    phim.setKhoiChieu(cursor.getString(5));
-                    phim.setMaTheLoai(cursor.getInt(6));
-                    phim.setTenTheLoai(cursor.getString(9));
-                    list.add(phim);
+                    tenPhim = cursor.getString(0);
                     cursor.moveToNext();
                 }
             }
         } catch (Exception e) {
             Log.i(TAG, "Lỗi" + e);
         }
-        return list;
+        return tenPhim;
+    }
+    String giaVe;
+    public String getGiaVe(String maPhim) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT giave FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    giaVe = cursor.getString(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return giaVe;
     }
 }

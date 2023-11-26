@@ -70,4 +70,12 @@ public class daoTaiKhoan {
         else
             return false;
     }
+    public boolean checkEmail(String email) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM account WHERE email = ?", new String[] {email});
+        if (cursor.getCount() != 0)
+            return true;
+        else
+            return false;
+    }
 }

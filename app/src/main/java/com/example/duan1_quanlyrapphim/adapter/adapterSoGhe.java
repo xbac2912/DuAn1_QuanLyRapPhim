@@ -16,6 +16,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.XacNhanDatVe;
+import com.example.duan1_quanlyrapphim.dao.DaoGheNgoi;
 import com.example.duan1_quanlyrapphim.model.soGhe;
 
 import java.util.ArrayList;
@@ -23,12 +25,16 @@ import java.util.ArrayList;
 public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> {
     private final Context context;
     private final ArrayList<soGhe> list;
+    DaoGheNgoi daoGheNgoi;
+    soGhe soGhe;
+    XacNhanDatVe xacNhanDatVe;
 
-    public adapterSoGhe(Context context, ArrayList<soGhe> list) {
+    public adapterSoGhe(Context context, ArrayList<soGhe> list, Activity activity) {
         this.context = context;
         this.list = list;
+        xacNhanDatVe = (XacNhanDatVe) activity;
+        daoGheNgoi = new DaoGheNgoi(context);
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,17 +48,19 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
         if (list.get(position).getTrangThai() == 0) {
             holder.layout.setBackground(new ColorDrawable(Color.parseColor("#FF0000")));
         } else if (list.get(position).getTrangThai() == 1) {
-            holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+            holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
         }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soGhe = list.get(position);
                 if (list.get(position).getTrangThai() == 1) {
                     list.get(position).setTrangThai(2);
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#EF7415")));
+                    daoGheNgoi.UpdateTT(soGhe, 2);
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
                 } else if (list.get(position).getTrangThai() == 2) {
                     list.get(position).setTrangThai(1);
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
                 }
             }
         });

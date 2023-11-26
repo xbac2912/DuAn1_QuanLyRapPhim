@@ -9,12 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.duan1_quanlyrapphim.fragment.fragment_QLKG;
+import com.example.duan1_quanlyrapphim.fragment.fragment_QLLC;
 import com.example.duan1_quanlyrapphim.fragment.fragment_QLP;
 import com.example.duan1_quanlyrapphim.fragment.fragment_ql_taikhoan;
-import com.example.duan1_quanlyrapphim.fragment.fragment_taikhoan;
-import com.example.duan1_quanlyrapphim.fragment.fragment_trangchu;
-import com.example.duan1_quanlyrapphim.fragment.fragment_vecuatoi;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -42,12 +39,12 @@ public class TrangChu_Admin extends AppCompatActivity {
                     fragment = new fragment_QLP();
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Phim", Toast.LENGTH_SHORT).show();
-                } else if (item.getItemId() == R.id.nav_khung_gio) {
-                    fragment = new fragment_QLKG();
+                } else if (item.getItemId() == R.id.nav_lich_chieu) {
+                    fragment = new fragment_QLLC();
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Khung giờ", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_ve_xem) {
-                    fragment = new fragment_taikhoan();
+                    fragment = new fragment_QLLC();
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Vé", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_tai_khoan) {

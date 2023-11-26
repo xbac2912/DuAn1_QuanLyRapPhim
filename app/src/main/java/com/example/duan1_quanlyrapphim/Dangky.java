@@ -45,10 +45,13 @@ public class Dangky extends AppCompatActivity {
                 if (name.isEmpty() || email.isEmpty() || pass.isEmpty() || cfpass.isEmpty()) {
                     Toast.makeText(Dangky.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (daoTaiKhoan.insert(new TaiKhoan(name, email, pass, 1))) {
-                        Toast.makeText(Dangky.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    if (daoTaiKhoan.checkEmail(email)) {
+                        Toast.makeText(Dangky.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
+                    } else if (daoTaiKhoan.insert(new TaiKhoan(name, email, pass, 1))) {
+                        Toast.makeText(Dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Dangky.this, Dangnhap.class));
                     } else {
-                        Toast.makeText(Dangky.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Dangky.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

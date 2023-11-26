@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DuAn1_QuanLyRapPhim"
         tools:targetApi="31">
         <activity
+            android:name=".ChiTietPhim"
+            android:exported="false" />
+        <activity
             android:name=".XacNhanDatVe"
             android:exported="false" />
         <activity
