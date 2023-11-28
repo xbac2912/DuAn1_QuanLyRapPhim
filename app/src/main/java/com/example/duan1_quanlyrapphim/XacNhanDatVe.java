@@ -11,22 +11,18 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.duan1_quanlyrapphim.adapter.AdapterGheDaChon;
 import com.example.duan1_quanlyrapphim.adapter.AdapterKhungGio;
 import com.example.duan1_quanlyrapphim.adapter.adapterNgayChieu;
 import com.example.duan1_quanlyrapphim.adapter.adapterSoGhe;
 import com.example.duan1_quanlyrapphim.dao.DaoGheNgoi;
-import com.example.duan1_quanlyrapphim.dao.daoLichChieu;
+import com.example.duan1_quanlyrapphim.dao.DAOLichChieu;
 import com.example.duan1_quanlyrapphim.dao.daoPhim;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
-import com.example.duan1_quanlyrapphim.model.Phim;
-import com.example.duan1_quanlyrapphim.model.TheLoai;
 import com.example.duan1_quanlyrapphim.model.soGhe;
 
 import java.util.ArrayList;
@@ -40,7 +36,7 @@ public class XacNhanDatVe extends AppCompatActivity {
     adapterNgayChieu adapterNgayChieu;
     AdapterKhungGio adapterKhungGio;
     RecyclerView rcvSoGhe, rcvNgayChieu, rcvKhungGio;
-    daoLichChieu daoLichChieu;
+    DAOLichChieu daoLichChieu;
     daoPhim daoPhim;
     DaoGheNgoi daoGheNgoi;
     TextView tvTenPhim, tvGiaVe;
@@ -63,7 +59,7 @@ public class XacNhanDatVe extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        daoLichChieu = new daoLichChieu(this);
+        daoLichChieu = new DAOLichChieu(this);
         daoPhim = new daoPhim(this);
         daoGheNgoi = new DaoGheNgoi(this);
         maPhim = getIntent().getStringExtra("maPhim");
@@ -137,6 +133,7 @@ public class XacNhanDatVe extends AppCompatActivity {
 //        Toast.makeText(this, "" + daoLichChieu.getPhong(maPhim, MaLichChieu), Toast.LENGTH_SHORT).show();
         txtGioChieu.setText(daoLichChieu.getGioChieu(maPhim, MaLichChieu));
 //        Toast.makeText(this, ""+daoLichChieu.getGioChieu(maPhim, MaLichChieu), Toast.LENGTH_SHORT).show();
+        Log.d("XacNhanDatVe", "Selected seats: " + daoGheNgoi.gheDaChon(MaLichChieu, 2));
         txtGhe.setText(String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)));
         Toast.makeText(this, ""+String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)), Toast.LENGTH_SHORT).show();
         txtThanhToan.setText("Tiền mặt");

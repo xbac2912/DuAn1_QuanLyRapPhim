@@ -20,11 +20,12 @@ public class daoPhim {
     public daoPhim(Context context) {
         dbHelper = new dbHelper(context);
     }
+
     public ArrayList<Phim> selectAll() {
         ArrayList<Phim> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.trangthai=0", null);
+            Cursor cursor = db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.trangthai=0", null);
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
@@ -47,11 +48,12 @@ public class daoPhim {
         }
         return list;
     }
+
     public ArrayList<Phim> selectPhimTheoTheLoai(String maTheLoai) {
         ArrayList<Phim> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=? AND phim.trangthai=0", new String[]{String.valueOf(maTheLoai)});
+            Cursor cursor = db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=? AND phim.trangthai=0", new String[]{String.valueOf(maTheLoai)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
@@ -74,10 +76,11 @@ public class daoPhim {
         }
         return list;
     }
+
     public boolean insert(Phim phim) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("matheloai", phim.getMaPhim());
+        values.put("maphim", phim.getMaPhim());
         values.put("imgphim", phim.getImgPhim());
         values.put("tenphim", phim.getTenPhim());
         values.put("mota", phim.getMoTa());
@@ -88,10 +91,11 @@ public class daoPhim {
         long row = db.insert("phim", null, values);
         return (row > 0);
     }
+
     public boolean update(Phim phim) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("matheloai", phim.getMaPhim());
+        values.put("maphim", phim.getMaPhim());
         values.put("imgphim", phim.getImgPhim());
         values.put("tenphim", phim.getTenPhim());
         values.put("mota", phim.getMoTa());
@@ -101,11 +105,13 @@ public class daoPhim {
         long row = db.update("phim", values, "maphim = ?", new String[]{String.valueOf(phim.getMaPhim())});
         return (row > 0);
     }
+
     String tenLoai;
+
     public String getTenTheLoai(String maTheLoai) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT tentheloai FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
+            Cursor cursor = db.rawQuery("SELECT tentheloai FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.matheloai=?", new String[]{String.valueOf(maTheLoai)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
@@ -118,6 +124,7 @@ public class daoPhim {
         }
         return tenLoai;
     }
+
     public int DeleteRow(Phim phim) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
@@ -129,11 +136,13 @@ public class daoPhim {
         };
         return db.update("phim", values, "maphim=?", index);
     }
+
     String tenPhim;
+
     public String getTenPhim(String maPhim) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT tenphim FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
+            Cursor cursor = db.rawQuery("SELECT tenphim FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
@@ -146,11 +155,31 @@ public class daoPhim {
         }
         return tenPhim;
     }
+
+    public int getMaPhim(String tenPhim) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int ma = 0;
+        try {
+            Cursor cursor = db.rawQuery("SELECT maphim FROM phim WHERE phim.tenphim=?", new String[]{tenPhim});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    ma = cursor.getInt(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return ma;
+    }
+
     String giaVe;
+
     public String getGiaVe(String maPhim) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
-            Cursor cursor =db.rawQuery("SELECT giave FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
+            Cursor cursor = db.rawQuery("SELECT giave FROM phim WHERE phim.maphim=?", new String[]{String.valueOf(maPhim)});
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {

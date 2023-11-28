@@ -3,7 +3,6 @@ package com.example.duan1_quanlyrapphim.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -16,12 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.duan1_quanlyrapphim.MainActivity;
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.XacNhanDatVe;
-import com.example.duan1_quanlyrapphim.dao.daoLichChieu;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
-import com.example.duan1_quanlyrapphim.model.Phim;
 
 import java.util.ArrayList;
 

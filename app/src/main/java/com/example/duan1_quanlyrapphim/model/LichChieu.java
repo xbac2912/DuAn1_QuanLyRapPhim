@@ -19,6 +19,15 @@ public class LichChieu {
         this.ngayChieu = ngayChieu;
     }
 
+    public LichChieu(int maPhong, int maKhungGio, int maPhim, String ngayChieu, String tenPhim, String khungGio) {
+        this.maPhong = maPhong;
+        this.maKhungGio = maKhungGio;
+        this.maPhim = maPhim;
+        this.ngayChieu = ngayChieu;
+        this.tenPhim = tenPhim;
+        this.khungGio = khungGio;
+    }
+
     public String getTenPhim() {
         return tenPhim;
     }

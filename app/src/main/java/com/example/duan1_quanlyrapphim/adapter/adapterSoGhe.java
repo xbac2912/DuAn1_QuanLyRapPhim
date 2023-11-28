@@ -54,12 +54,13 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
             @Override
             public void onClick(View v) {
                 soGhe = list.get(position);
-                if (list.get(position).getTrangThai() == 1) {
-                    list.get(position).setTrangThai(2);
+                if (soGhe.getTrangThai() == 1) {
+                    soGhe.setTrangThai(2);
                     daoGheNgoi.UpdateTT(soGhe, 2);
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
-                } else if (list.get(position).getTrangThai() == 2) {
-                    list.get(position).setTrangThai(1);
+                } else if (soGhe.getTrangThai() == 2) {
+                    soGhe.setTrangThai(1);
+                    daoGheNgoi.UpdateTT(soGhe, 1);
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
                 }
             }
