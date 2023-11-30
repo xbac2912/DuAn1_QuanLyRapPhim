@@ -77,7 +77,6 @@ public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.View
         holder.tvTenPhim.setText(daoPhim.getTenPhim(String.valueOf(lichChieu.getMaPhim())));
         holder.tvPhong.setText("Phòng: " + lichChieu.getMaPhong());
         holder.tvNgayChieu.setText(lichChieu.getNgayChieu());
-//        holder.tvKhungGio.setText(lichChieu.getKhungGio());
         holder.tvKhungGio.setText(daoKhungGio.getKhungGioByMa(lichChieu.getMaKhungGio()));
 
 
@@ -170,18 +169,14 @@ public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.View
                             return;
                         }
 
-                        Log.d("Cập nhật", "Tên phim: " + tenPhim);
-                        Log.d("Cập nhật", "Phòng: " + phong);
-                        Log.d("Cập nhật", "Khung giờ: " + khungGio);
-                        Log.d("Cập nhật", "Ngày chiếu: " + ngay);
-                        Log.d("Cập nhật", "ma: " + daoKhungGio.getMaKhungGio(khungGio));
-
 
 
                         lichChieu.setMaPhong(daoPhong.layMaBangSoPhong(phong));
                         lichChieu.setNgayChieu(ngay);
                         lichChieu.setMaPhim(daoPhim.getMaPhim(tenPhim));
                         lichChieu.setMaKhungGio(daoKhungGio.getMaKhungGio(khungGio));
+                        lichChieu.setKhungGio(khungGio);
+
 
                         if (daoLichChieu.update(lichChieu)){
                             list.clear();

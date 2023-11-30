@@ -152,7 +152,7 @@ public class DAOLichChieu {
 //        values.put("malichchieu", lichChieu.getMaLichChieu());
         values.put("ngaychieu", lichChieu.getNgayChieu());
         values.put("maphong", lichChieu.getMaPhong());
-        values.put("makhunggio", lichChieu.getKhungGio());
+        values.put("makhunggio", lichChieu.getMaKhungGio());
         values.put("maphim", lichChieu.getMaPhim());
 
         long row = db.insert("lichchieu", null, values);
@@ -165,7 +165,7 @@ public class DAOLichChieu {
 //        values.put("malichchieu", lichChieu.getMaLichChieu());
         values.put("ngaychieu", lichChieu.getNgayChieu());
         values.put("maphong", lichChieu.getMaPhong());
-        values.put("makhunggio", lichChieu.getKhungGio());
+        values.put("makhunggio", lichChieu.getMaKhungGio());
         values.put("maphim", lichChieu.getMaPhim());
 
         long row = db.update("lichchieu", values, "malichchieu=?", new String[]{String.valueOf(lichChieu.getMaLichChieu())});

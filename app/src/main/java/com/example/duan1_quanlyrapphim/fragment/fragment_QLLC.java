@@ -1,5 +1,11 @@
 package com.example.duan1_quanlyrapphim.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,17 +14,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.adapter.AdapterLichChieu;
 import com.example.duan1_quanlyrapphim.dao.DAOLichChieu;
+import com.example.duan1_quanlyrapphim.dao.DaoKhungGio;
+import com.example.duan1_quanlyrapphim.dao.DaoPhong;
+import com.example.duan1_quanlyrapphim.dao.daoPhim;
+import com.example.duan1_quanlyrapphim.model.KhungGio;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
+import com.example.duan1_quanlyrapphim.model.Phim;
+import com.example.duan1_quanlyrapphim.model.Phong;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class fragment_QLLC extends Fragment {
     RecyclerView rvcLichChieu;
@@ -26,6 +47,15 @@ public class fragment_QLLC extends Fragment {
     EditText edtSearch;
     AdapterLichChieu adapterLichChieu;
     ArrayList<LichChieu> list = new ArrayList<>();
+    ImageButton btnThem;
+    String ngay;
+    Spinner spnTenPhim,spnPhong,spnKhungGio;
+    EditText edtNgayChieu;
+    Button btnHuy,btnAdd;
+
+    DaoPhong daoPhong;
+    DaoKhungGio daoKhungGio;
+    daoPhim daoPhim;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +64,13 @@ public class fragment_QLLC extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ql, container, false);
         rvcLichChieu = view.findViewById(R.id.rcvPhim);
         edtSearch = view.findViewById(R.id.edtSearch);
+        btnThem = view.findViewById(R.id.btnThem);
+        daoPhong = new DaoPhong(getContext());
+        daoKhungGio = new DaoKhungGio(getContext());
+        daoPhim = new daoPhim(getContext());
+
+
+
 
         daoLichChieu = new DAOLichChieu(getContext());
         list = daoLichChieu.selectAll();
@@ -59,6 +96,90 @@ public class fragment_QLLC extends Fragment {
                 handleSearch(s.toString());
             }
         });
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_lichchieu, null);
+                builder.setView(view);
+                Dialog dialog = builder.create();
+                dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+
+                spnTenPhim = view.findViewById(R.id.spnTenPhim);
+                spnPhong = view.findViewById(R.id.spnPhong);
+                spnKhungGio = view.findViewById(R.id.spnKhungGio);
+                edtNgayChieu = view.findViewById(R.id.txtNgayChieu);
+                btnAdd = view.findViewById(R.id.btnThem);
+                btnHuy = view.findViewById(R.id.btnHuy);
+
+                LichChieu lichChieu = new LichChieu();
+
+                spnTenPhim.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, getTenPhimList()));
+                spnTenPhim.setSelection(getTenPhimList().indexOf(lichChieu.getTenPhim()));
+
+                spnPhong.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, getPhongList()));
+                spnPhong.setSelection(getPhongList().indexOf(daoPhong.laySoPhongBangMa(lichChieu.getMaPhong())));
+
+                edtNgayChieu.setText(lichChieu.getNgayChieu());
+
+                spnKhungGio.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, getKhungGioList()));
+                spnKhungGio.setSelection(getKhungGioList().indexOf(daoKhungGio.getKhungGioByMa(lichChieu.getMaKhungGio())));
+
+                edtNgayChieu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        chonNgay();
+                    }
+                });
+
+
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String tenPhim = spnTenPhim.getSelectedItem().toString();
+                        String phong = spnPhong.getSelectedItem().toString();
+                        String khungGio = spnKhungGio.getSelectedItem().toString();
+                        String ngay = edtNgayChieu.getText().toString();
+
+
+                        if(tenPhim.isEmpty()||phong.isEmpty()||khungGio.isEmpty()||ngay.isEmpty()){
+                            Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
+
+                        lichChieu.setMaPhong(daoPhong.layMaBangSoPhong(phong));
+                        lichChieu.setNgayChieu(ngay);
+                        lichChieu.setMaPhim(daoPhim.getMaPhim(tenPhim));
+                        lichChieu.setMaKhungGio(daoKhungGio.getMaKhungGio(khungGio));
+                        lichChieu.setKhungGio(khungGio);
+
+
+
+                        if (daoLichChieu.insert(lichChieu)){
+                            list.clear();
+                            list.addAll(daoLichChieu.selectAll());
+                            adapterLichChieu.notifyDataSetChanged();
+                            dialog.dismiss();
+                            Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getContext(), "Lỗi thêm", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                btnHuy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
         return view;
     }
@@ -74,5 +195,55 @@ public class fragment_QLLC extends Fragment {
         }
         adapterLichChieu = new AdapterLichChieu(getContext(), listSearch);
         rvcLichChieu.setAdapter(adapterLichChieu);
+    }
+
+    private ArrayList<String> getTenPhimList() {
+        daoPhim dao = new daoPhim(getContext());
+        ArrayList<Phim> list1 = dao.selectAll();
+        ArrayList<String> tenTenPhimList = new ArrayList<>();
+
+        for (Phim phim: list1){
+            tenTenPhimList.add(phim.getTenPhim());
+        }
+        return tenTenPhimList;
+    }
+
+    private ArrayList<String> getPhongList() {
+        DaoPhong dao = new DaoPhong(getContext());
+        ArrayList<Phong> list1 = dao.selectAll();
+        ArrayList<String> tenPhongList = new ArrayList<>();
+
+        for (Phong phong: list1){
+            tenPhongList.add(phong.getSoPhong());
+        }
+        return tenPhongList;
+    }
+
+    private ArrayList<String> getKhungGioList() {
+        DaoKhungGio daoKhungGio = new DaoKhungGio(getContext());
+        ArrayList<KhungGio> list1 = daoKhungGio.selectAll();
+        ArrayList<String> tenKGList = new ArrayList<>();
+
+        for (KhungGio khungGio: list1){
+            tenKGList.add(khungGio.getKhungGio());
+        }
+        return tenKGList;
+    }
+
+    private void chonNgay() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                ngay = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay; // Tháng trong and từ 0-11
+                edtNgayChieu.setText(ngay); // Hiển thị ngày đã chọn
+            }
+        }, year, month, day);
+
+        datePickerDialog.show();
     }
 }
