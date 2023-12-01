@@ -30,7 +30,7 @@ public class AdapterGheDaChon extends RecyclerView.Adapter<AdapterGheDaChon.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_soghe, null);
+        View view = inflater.inflate(R.layout.item_soghedachon, null);
         return new ViewHolder(view);
     }
 
@@ -46,13 +46,9 @@ public class AdapterGheDaChon extends RecyclerView.Adapter<AdapterGheDaChon.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvSoGhe;
-        CardView cardView;
-        LinearLayout layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvSoGhe = itemView.findViewById(R.id.tvSoGhe);
-            cardView = itemView.findViewById(R.id.card_view);
-            layout = itemView.findViewById(R.id.line1);
         }
     }
 }

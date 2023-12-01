@@ -108,36 +108,37 @@ public class dbHelper extends SQLiteOpenHelper {
         db.execSQL(data_lichchieu);
         //Bảng vé phim
         String tb_vephim = "CREATE TABLE ve(" +
-                "mave INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "mave INTEGER PRIMARY KEY, " +
                 "matk INTEGER REFERENCES account(matk), " +
                 "maphim INTEGER REFERENCES phim(maphim), " +
                 "trangthaithanhtoan INTEGER NOT NULL)";
         String data_vephim = "INSERT INTO ve VALUES " +
-                "( 1, 1, 1, 0)," +
-                "( 2, 2, 2, 0)," +
-                "( 3, 3, 3, 0)," +
-                "( 4, 4, 4, 0)";
+                "( 120213, 1, 1, 0)," +
+                "( 123123, 2, 2, 0)," +
+                "( 231239, 3, 3, 0)," +
+                "( 912891, 4, 4, 0)";
         db.execSQL(tb_vephim);
         db.execSQL(data_vephim);
         //Bảng chi tiết vé phim
         String tb_chitetve = "CREATE TABLE chitietve(" +
                 "mavechitiet INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "mave INTEGER REFERENCES ve(mave), " +
                 "tenphim TEXT NOT NULL, " +
-                "mota TEXT NOT NULL, " +
                 "giave INTEGER NOT NULL, " +
                 "ngaychieu TEXT NOT NULL, " +
-                "phongchieu INTEGER NOT NULL, " +
+                "phongchieu TEXT NOT NULL, " +
                 "giochieu TEXT NOT NULL, " +
                 "ghedachon INTEGER NOT NULL, " +
-                "hansudung INTEGER NOT NULL)";
+                "hansudung INTEGER NOT NULL," +
+                "mave INTEGER REFERENCES ve(mave)," +
+                "malichchieu INTEGER REFERENCES lichchieu(malichchieu)," +
+                "maghe INTEGER REFERENCES ghe(maghe))";
         String data_chitietve = "INSERT INTO chitietve VALUES " +
-                "( 1, 1, 'Hành Động', 'Phim hay', 100000, '2023/11/20', 1, 1, 15, 0)," +
-                "( 2, 2, 'Hành Động', 'Phim hay', 100000, '2023/11/20', 1, 1, 3, 0)," +
-                "( 3, 3, 'Hành Động', 'Phim hay', 100000, '2023/11/20', 1, 1, 5, 0)," +
-                "( 4, 4, 'Hành Động', 'Phim hay', 100000, '2023/11/20', 1, 1, 13, 0)";
+                "( 0, 'Hành Động', 100000, '2023/11/20', 1, '13h - 15h', 6, 0, 1, 6)," +
+                "( 1, 'Hành Động', 100000, '2023/11/20', 1, '13h - 15h', 10, 0, 1, 10)," +
+                "( 2, 'Hành Động', 100000, '2023/11/20', 1, '13h - 15h', 14, 0, 1, 14)," +
+                "( 3, 'Hành Động', 100000, '2023/11/20', 1, '13h - 15h', 17, 0, 1, 17)";
         db.execSQL(tb_chitetve);
-        db.execSQL(data_chitietve);
+//        db.execSQL(data_chitietve);
         String tb_ghe = "CREATE TABLE ghe(" +
                 "maghe INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "soghe INTEGER NOT NULL, " +
@@ -149,18 +150,18 @@ public class dbHelper extends SQLiteOpenHelper {
                 "( 3, 3, 1, 1)," +
                 "( 4, 4, 1, 1)," +
                 "( 5, 5, 1, 1)," +
-                "( 6, 6, 0, 1)," +
+                "( 6, 6, 1, 1)," +
                 "( 7, 7, 1, 1)," +
                 "( 8, 8, 1, 1)," +
                 "( 9, 9, 1, 1)," +
-                "( 10, 10, 0, 1)," +
+                "( 10, 10, 1, 1)," +
                 "( 11, 11, 1, 1)," +
                 "( 12, 12, 1, 1)," +
                 "( 13, 13, 1, 1)," +
-                "( 14, 14, 0, 1)," +
+                "( 14, 14, 1, 1)," +
                 "( 15, 15, 1, 1)," +
                 "( 16, 16, 1, 1)," +
-                "( 17, 17, 0, 1)," +
+                "( 17, 17, 1, 1)," +
                 "( 18, 18, 1, 1)," +
                 "( 19, 19, 1, 1)," +
                 "( 20, 20, 1, 1)";

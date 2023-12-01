@@ -78,4 +78,21 @@ public class daoTaiKhoan {
         else
             return false;
     }
+    public int getMaTK(String username, int vaiTro) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int matk = 0;
+        try {
+            Cursor cursor = db.rawQuery("SELECT matk FROM account WHERE email=? and vaitro=?", new String[] {username, String.valueOf(vaiTro)});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    matk = cursor.getInt(0);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return matk;
+    }
 }

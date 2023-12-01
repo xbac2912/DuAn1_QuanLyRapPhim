@@ -43,6 +43,7 @@ public class Dangnhap extends AppCompatActivity {
                 if (daoTaiKhoan.checklogin(email, pass, 1)) {
                     Intent intent = new Intent(Dangnhap.this, TrangChu_User.class);
                     luuMatKhau(email, pass, chkNhoMatKhau.isChecked());
+                    intent.putExtra("matk", String.valueOf(daoTaiKhoan.getMaTK(email, 1)));
                     startActivity(intent);
                     Toast.makeText(Dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 } else if (daoTaiKhoan.checklogin(email, pass, 0)) {

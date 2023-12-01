@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,11 +29,14 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
     DaoGheNgoi daoGheNgoi;
     soGhe soGhe;
     XacNhanDatVe xacNhanDatVe;
+    private DataClickListener dataClickListener;
+    ArrayList<soGhe> listGhe = new ArrayList<>();
 
-    public adapterSoGhe(Context context, ArrayList<soGhe> list, Activity activity) {
+    public adapterSoGhe(Context context, ArrayList<soGhe> list, Activity activity, DataClickListener dataClickListener) {
         this.context = context;
         this.list = list;
         xacNhanDatVe = (XacNhanDatVe) activity;
+        this.dataClickListener = dataClickListener;
         daoGheNgoi = new DaoGheNgoi(context);
     }
     @NonNull
@@ -56,10 +60,13 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
                 soGhe = list.get(position);
                 if (list.get(position).getTrangThai() == 1) {
                     list.get(position).setTrangThai(2);
-                    daoGheNgoi.UpdateTT(soGhe, 2);
+                    listGhe.add(soGhe);
+                    dataClickListener.onDataClick(listGhe);
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
                 } else if (list.get(position).getTrangThai() == 2) {
                     list.get(position).setTrangThai(1);
+                    listGhe.remove(soGhe);
+                    dataClickListener.onDataClick(listGhe);
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
                 }
             }
@@ -81,5 +88,8 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
             cardView = itemView.findViewById(R.id.card_view);
             layout = itemView.findViewById(R.id.line1);
         }
+    }
+    public interface DataClickListener {
+        void onDataClick(ArrayList<soGhe> listGheDaChon); // Thay đổi kiểu dữ liệu theo nhu cầu của bạn
     }
 }

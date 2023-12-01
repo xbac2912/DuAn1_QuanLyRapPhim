@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,16 +23,20 @@ import com.example.duan1_quanlyrapphim.adapter.AdapterKhungGio;
 import com.example.duan1_quanlyrapphim.adapter.adapterNgayChieu;
 import com.example.duan1_quanlyrapphim.adapter.adapterSoGhe;
 import com.example.duan1_quanlyrapphim.dao.DaoGheNgoi;
+import com.example.duan1_quanlyrapphim.dao.DaoVe;
 import com.example.duan1_quanlyrapphim.dao.daoLichChieu;
 import com.example.duan1_quanlyrapphim.dao.daoPhim;
+import com.example.duan1_quanlyrapphim.model.ChiTietVe;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
 import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
+import com.example.duan1_quanlyrapphim.model.Ve;
 import com.example.duan1_quanlyrapphim.model.soGhe;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class XacNhanDatVe extends AppCompatActivity {
+public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1_quanlyrapphim.adapter.adapterSoGhe.DataClickListener {
     Toolbar toolbar;
     ArrayList<soGhe> listSoGhe = new ArrayList<>();
     ArrayList<LichChieu> listLichChieu = new ArrayList<>();
@@ -43,15 +48,20 @@ public class XacNhanDatVe extends AppCompatActivity {
     daoLichChieu daoLichChieu;
     daoPhim daoPhim;
     DaoGheNgoi daoGheNgoi;
+    DaoVe daoVe;
     TextView tvTenPhim, tvGiaVe;
-    String maPhim;
+    String maPhim, maTk;
     String Ngay, MaLichChieu;
+    ArrayList<soGhe> listGheChon = new ArrayList<>();
+    Dangnhap dangnhap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xac_nhan_dat_ve);
         tvTenPhim = findViewById(R.id.tvTenPhim);
         tvGiaVe = findViewById(R.id.tvGiaVe);
+        daoVe = new DaoVe(this);
+        maTk = getIntent().getStringExtra("matk");
         //
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,7 +80,7 @@ public class XacNhanDatVe extends AppCompatActivity {
         //
         listSoGhe = daoGheNgoi.selectAll("");
         rcvSoGhe = findViewById(R.id.rcvGheNgoi);
-        adapterSoGhe = new adapterSoGhe(this, listSoGhe, this);
+        adapterSoGhe = new adapterSoGhe(this, listSoGhe, this, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5);
         rcvSoGhe.setLayoutManager(gridLayoutManager);
         rcvSoGhe.setAdapter(adapterSoGhe);
@@ -127,34 +137,68 @@ public class XacNhanDatVe extends AppCompatActivity {
         TextView txtNgayChieu = view.findViewById(R.id.txtKhoiChieu);
         TextView txtPhong = view.findViewById(R.id.txtPhong);
         TextView txtGioChieu= view.findViewById(R.id.txtGioChieu);
-        TextView txtGhe = view.findViewById(R.id.txtGhe);
+//        TextView txtGhe = view.findViewById(R.id.txtGhe);
         TextView txtThanhToan = view.findViewById(R.id.txtThanhToan);
         TextView txtTongTien = view.findViewById(R.id.txtTongTien);
+
+        RecyclerView txtGhe = view.findViewById(R.id.txtGhe);
 
         txtTenPhim.setText(daoPhim.getTenPhim(maPhim));
         txtNgayChieu.setText(Ngay);
         txtPhong.setText(daoLichChieu.getPhong(maPhim, MaLichChieu));
+        AdapterGheDaChon adapterGheDaChon = new AdapterGheDaChon(this, listGheChon);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        txtGhe.setLayoutManager(linearLayoutManager);
+        txtGhe.setAdapter(adapterGheDaChon);
 //        Toast.makeText(this, "" + daoLichChieu.getPhong(maPhim, MaLichChieu), Toast.LENGTH_SHORT).show();
         txtGioChieu.setText(daoLichChieu.getGioChieu(maPhim, MaLichChieu));
 //        Toast.makeText(this, ""+daoLichChieu.getGioChieu(maPhim, MaLichChieu), Toast.LENGTH_SHORT).show();
-        txtGhe.setText(String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)));
-        Toast.makeText(this, ""+String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)), Toast.LENGTH_SHORT).show();
+//        txtGhe.setText(String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)));
+//        Toast.makeText(this, String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)), Toast.LENGTH_SHORT).show();
         txtThanhToan.setText("Tiền mặt");
-        txtTongTien.setText(String.valueOf(Integer.valueOf(daoPhim.getGiaVe(maPhim))));
+        txtTongTien.setText(String.valueOf(Integer.valueOf(daoPhim.getGiaVe(maPhim)) * listGheChon.size()));
+
         view.findViewById(R.id.btnXacNhan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean check = false;
+                int maVe;
+                do {
+                    maVe = new Random().nextInt(899999999)+100000000;
+                } while (daoVe.checkMaVe(String.valueOf(maVe)) == false);
+//                Toast.makeText(XacNhanDatVe.this, "Mã vé: " + maVe, Toast.LENGTH_SHORT).show();
 
+                if (daoVe.insertVe(new Ve( maVe, Integer.valueOf(maTk), Integer.valueOf(maPhim),1))) {
+                    for (int i = 0; i<listGheChon.size(); i++) {
+                        if (daoVe.insertChiTietVe(new ChiTietVe( daoPhim.getTenPhim(maPhim), Integer.valueOf(daoPhim.getGiaVe(maPhim)), Ngay, daoLichChieu.getPhong(maPhim, MaLichChieu), daoLichChieu.getGioChieu(maPhim, MaLichChieu), listGheChon.get(i).getSoGhe(), 0, maVe, Integer.valueOf(MaLichChieu), listGheChon.get(i).getMaGhe()))) {
+//                            Toast.makeText(XacNhanDatVe.this, "Lần: " + i, Toast.LENGTH_SHORT).show();
+                            if (daoGheNgoi.UpdateTT(listGheChon.get(i), 0) > 0) {
+                                check = true;
+                            }
+                        }
+                    }
+                }
+                if (check) {
+                    dialog.dismiss();
+                    startActivity(new Intent(XacNhanDatVe.this, TrangChu_User.class));
+                    Toast.makeText(XacNhanDatVe.this, "Đặt vé thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    dialog.dismiss();
+                    Toast.makeText(XacNhanDatVe.this, "Đặt vé thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         view.findViewById(R.id.btnHuy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listGheChon.clear();
                 dialog.dismiss();
             }
         });
     }
-    public ArrayList<soGhe> gheDaChon(ArrayList<soGhe> listSoGhe) {
-        return listSoGhe;
+
+    @Override
+    public void onDataClick(ArrayList<soGhe> listGheDaChon) {
+        listGheChon = listGheDaChon;
     }
 }

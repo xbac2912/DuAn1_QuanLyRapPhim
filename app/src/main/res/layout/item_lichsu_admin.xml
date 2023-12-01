@@ -59,11 +59,11 @@
                     android:text="Giờ chiếu:"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số lượng vé:"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Số lượng vé:"-->
+<!--                    android:textSize="15sp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,11 +71,11 @@
                     android:text="Ghế đã chọn:"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Đồ ăn/uống:"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Đồ ăn/uống:"-->
+<!--                    android:textSize="15sp" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,14 +145,14 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtSoLuongVe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0000"
-                    android:textColor="#005B8E"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtSoLuongVe"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="0000"-->
+<!--                    android:textColor="#005B8E"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textStyle="bold" />-->
 
                 <TextView
                     android:id="@+id/txtGhe"
@@ -163,14 +163,14 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtDoAnUong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0000"
-                    android:textColor="#005B8E"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtDoAnUong"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="0000"-->
+<!--                    android:textColor="#005B8E"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textStyle="bold" />-->
 
                 <TextView
                     android:id="@+id/txtThanhToan"

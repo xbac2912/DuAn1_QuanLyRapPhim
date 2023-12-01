@@ -130,27 +130,27 @@
                         android:padding="10dp"/>
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tổng tiền: "
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
-                <TextView
-                    android:id="@+id/tvTongTien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="350000 VNĐ"
-                    android:textStyle="bold"
-                    android:textColor="#FF0000"
-                    android:textSize="18sp"/>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingVertical="5dp"-->
+<!--                android:orientation="horizontal">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Tổng tiền: "-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18sp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tvTongTien"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="350000 VNĐ"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="#FF0000"-->
+<!--                    android:textSize="18sp"/>-->
+<!--            </LinearLayout>-->
         </LinearLayout>
     </ScrollView>
     <Button

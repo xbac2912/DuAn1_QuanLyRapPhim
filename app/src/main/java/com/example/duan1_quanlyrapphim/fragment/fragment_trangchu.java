@@ -14,6 +14,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.TrangChu_User;
 import com.example.duan1_quanlyrapphim.adapter.adapterPhim_user;
 import com.example.duan1_quanlyrapphim.adapter.adapterTheLoai_user;
 import com.example.duan1_quanlyrapphim.dao.daoPhim;
@@ -33,6 +34,7 @@ public class fragment_trangchu extends Fragment {
     adapterPhim_user adapterPhim;
     daoTheLoai daoTheLoai;
     daoPhim daoPhim;
+    TrangChu_User trangChuUser;
     public fragment_trangchu() {
         // Required empty public constructor
     }
@@ -42,6 +44,8 @@ public class fragment_trangchu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_trangchu, container, false);
+        trangChuUser = (TrangChu_User) getActivity();
+        String matk = trangChuUser.getMaTK();
         // slide show
         imageList.add(new SlideModel("https://i.ytimg.com/vi/fVWlCV9_n7w/maxresdefault.jpg", "The animal population decreased by 58 percent in 42 years.", ScaleTypes.CENTER_CROP));
         imageList.add(new SlideModel("https://i.ytimg.com/vi/2K8EpM-piDw/maxresdefault.jpg", "Elephants and tigers may become extinct.", ScaleTypes.CENTER_CROP));
@@ -60,7 +64,7 @@ public class fragment_trangchu extends Fragment {
         daoPhim = new daoPhim(getContext());
         listPhim = daoPhim.selectAll();
         rcvPhim = view.findViewById(R.id.rcvTatCaPhim);
-        adapterPhim = new adapterPhim_user(getContext(), listPhim);
+        adapterPhim = new adapterPhim_user(getContext(), listPhim, matk);
         GridLayoutManager layoutManagerPhim = new GridLayoutManager(getContext(), 3);
         rcvPhim.setLayoutManager(layoutManagerPhim);
         rcvPhim.setAdapter(adapterPhim);

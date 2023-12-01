@@ -26,10 +26,12 @@ import java.util.ArrayList;
 public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.ViewHolder> {
     private final Context context;
     private final ArrayList<Phim> list;
+    private String matk;
 
-    public adapterPhim_user(Context context, ArrayList<Phim> list) {
+    public adapterPhim_user(Context context, ArrayList<Phim> list, String matk) {
         this.context = context;
         this.list = list;
+        this.matk = matk;
     }
 
     @NonNull
@@ -49,6 +51,7 @@ public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.View
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, XacNhanDatVe.class);
+                intent.putExtra("matk", matk);
                 intent.putExtra("maPhim", String.valueOf(list.get(position).getMaPhim()));
                 context.startActivity(intent);
             }

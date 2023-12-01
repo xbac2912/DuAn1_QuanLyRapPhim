@@ -26,6 +26,7 @@ public class TrangChu_User extends AppCompatActivity {
         fragment_trangchu fragmentTrangchu = new fragment_trangchu();
         replaceFrg(fragmentTrangchu);
         //
+        //
         bottomNavigationView = findViewById(R.id.nav_bottom_bar);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -38,7 +39,7 @@ public class TrangChu_User extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.nav_lich_su) {
                     fragment = new fragment_vecuatoi();
                     replaceFrg(fragment);
-                    Toast.makeText(TrangChu_User.this, "Lịch sử", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TrangChu_User.this, "Vé của tôi", Toast.LENGTH_SHORT).show();
                 }  else if (item.getItemId() == R.id.nav_tai_khoan) {
                     fragment = new fragment_taikhoan();
                     replaceFrg(fragment);
@@ -51,5 +52,8 @@ public class TrangChu_User extends AppCompatActivity {
     public void replaceFrg(Fragment frg) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_layout, frg).commit();
+    }
+    public String getMaTK() {
+        return getIntent().getStringExtra("matk");
     }
 }
