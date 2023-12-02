@@ -37,9 +37,8 @@ public class Adapter_ql_taikhoan extends RecyclerView.Adapter<Adapter_ql_taikhoa
     @Override
     public void onBindViewHolder(@NonNull ViewHolperQLTK holder, int position) {
         TaiKhoan taiKhoan = listTK.get(position);
-            holder.name_ql_dskh.setText(taiKhoan.getTenNguoiDung());
-            holder.email_ql_dskh.setText(taiKhoan.getEmail());
-
+            holder.name_ql_dskh.setText("Họ tên: "+taiKhoan.getTenNguoiDung());
+            holder.email_ql_dskh.setText("Email: "+taiKhoan.getEmail());
     }
 
     @Override
@@ -52,7 +51,7 @@ public class Adapter_ql_taikhoan extends RecyclerView.Adapter<Adapter_ql_taikhoa
         TextView name_ql_dskh, email_ql_dskh;
         public ViewHolperQLTK(@NonNull View itemView) {
             super(itemView);
-            img_ql_dskh = itemView.findViewById(R.id.img_ql_dskh);
+//            img_ql_dskh = itemView.findViewById(R.id.img_ql_dskh);
             name_ql_dskh = itemView.findViewById(R.id.name_ql_dskh);
             email_ql_dskh = itemView.findViewById(R.id.email_ql_dskh);
         }
