@@ -9,6 +9,7 @@ public class ChiTietVe {
     private String gioChieu;
     private int gheDaChon;
     private int hanSuDung;
+    private String email;
     private int maVe;
     private int maLichChieu;
     private int maGhe;
@@ -27,6 +28,14 @@ public class ChiTietVe {
         this.maVe = maVe;
         this.maLichChieu = maLichChieu;
         this.maGhe = maGhe;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getMaVeChiTiet() {

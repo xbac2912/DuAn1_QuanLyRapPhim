@@ -21,25 +21,66 @@ public class DaoVe {
     public DaoVe(Context context) {
         dbHelper = new dbHelper(context);
     }
-//    public ArrayList<Phim> selectAll() {
-//        ArrayList<Phim> list = new ArrayList<>();
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//        try {
-//            Cursor cursor =db.rawQuery("SELECT * FROM ve", null);
-//            if (cursor.getCount() > 0) {
-//                cursor.moveToFirst();
-//                while (!cursor.isAfterLast()) {
-//                    Ve ve = new Ve();
-//
-//                    list.add(ve);
-//                    cursor.moveToNext();
-//                }
-//            }
-//        } catch (Exception e) {
-//            Log.i(TAG, "Lỗi" + e);
-//        }
-//        return list;
-//    }
+    public ArrayList<ChiTietVe> selectAll(String matk) {
+        ArrayList<ChiTietVe> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT * FROM chitietve INNER JOIN ve ON chitietve.mave = ve.mave INNER JOIN account ON ve.matk = account.matk WHERE ve.matk=?", new String[]{matk});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    ChiTietVe chiTietVe = new ChiTietVe();
+                    chiTietVe.setMaVeChiTiet(cursor.getInt(0));
+                    chiTietVe.setTenPhim(cursor.getString(1));
+                    chiTietVe.setGiaVe(cursor.getInt(2));
+                    chiTietVe.setNgayChieu(cursor.getString(3));
+                    chiTietVe.setPhongChieu(cursor.getString(4));
+                    chiTietVe.setGioChieu(cursor.getString(5));
+                    chiTietVe.setGheDaChon(cursor.getInt(6));
+                    chiTietVe.setHanSuDung(cursor.getInt(7));
+                    chiTietVe.setMaVe(cursor.getInt(8));
+                    chiTietVe.setMaLichChieu(cursor.getInt(9));
+                    chiTietVe.setMaGhe(cursor.getInt(10));
+                    chiTietVe.setEmail(cursor.getString(17));
+                    list.add(chiTietVe);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list;
+    }
+    public ArrayList<ChiTietVe> selectAll1() {
+        ArrayList<ChiTietVe> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT * FROM chitietve INNER JOIN ve ON chitietve.mave = ve.mave INNER JOIN account ON ve.matk = account.matk", null);
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    ChiTietVe chiTietVe = new ChiTietVe();
+                    chiTietVe.setMaVeChiTiet(cursor.getInt(0));
+                    chiTietVe.setTenPhim(cursor.getString(1));
+                    chiTietVe.setGiaVe(cursor.getInt(2));
+                    chiTietVe.setNgayChieu(cursor.getString(3));
+                    chiTietVe.setPhongChieu(cursor.getString(4));
+                    chiTietVe.setGioChieu(cursor.getString(5));
+                    chiTietVe.setGheDaChon(cursor.getInt(6));
+                    chiTietVe.setHanSuDung(cursor.getInt(7));
+                    chiTietVe.setMaVe(cursor.getInt(8));
+                    chiTietVe.setMaLichChieu(cursor.getInt(9));
+                    chiTietVe.setMaGhe(cursor.getInt(10));
+                    chiTietVe.setEmail(cursor.getString(17));
+                    list.add(chiTietVe);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list;
+    }
 public boolean insertVe(Ve ve) {
     SQLiteDatabase db = dbHelper.getWritableDatabase();
     ContentValues values = new ContentValues();

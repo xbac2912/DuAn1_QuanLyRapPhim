@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.duan1_quanlyrapphim.fragment.fragment_QLLC;
 import com.example.duan1_quanlyrapphim.fragment.fragment_QLP;
 import com.example.duan1_quanlyrapphim.fragment.fragment_ql_taikhoan;
+import com.example.duan1_quanlyrapphim.fragment.fragment_ql_ve;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -44,7 +45,7 @@ public class TrangChu_Admin extends AppCompatActivity {
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Khung giờ", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_ve_xem) {
-                    fragment = new fragment_QLLC();
+                    fragment = new fragment_ql_ve();
                     replaceFrg(fragment);
                     Toast.makeText(TrangChu_Admin.this, "Vé", Toast.LENGTH_SHORT).show();
                 } else if (item.getItemId() == R.id.nav_tai_khoan) {

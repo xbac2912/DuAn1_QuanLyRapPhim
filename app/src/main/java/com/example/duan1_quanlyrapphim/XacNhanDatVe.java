@@ -180,7 +180,9 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
                 }
                 if (check) {
                     dialog.dismiss();
-                    startActivity(new Intent(XacNhanDatVe.this, TrangChu_User.class));
+                    Intent intent = new Intent(XacNhanDatVe.this, TrangChu_User.class);
+                    intent.putExtra("matk", maTk);
+                    startActivity(intent);
                     Toast.makeText(XacNhanDatVe.this, "Đặt vé thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     dialog.dismiss();
