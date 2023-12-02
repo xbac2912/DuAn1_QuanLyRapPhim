@@ -149,7 +149,7 @@ public class DAOLichChieu {
     public boolean insert(LichChieu lichChieu) {
         db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-//        values.put("malichchieu", lichChieu.getMaLichChieu());
+        values.put("malichchieu", lichChieu.getMaLichChieu());
         values.put("ngaychieu", lichChieu.getNgayChieu());
         values.put("maphong", lichChieu.getMaPhong());
         values.put("makhunggio", lichChieu.getMaKhungGio());
@@ -202,5 +202,15 @@ public class DAOLichChieu {
         db.close();
         return list;
     }
-
+    int rowMaLC;
+    public boolean checkMaLC(String maLC) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT malichchieu FROM lichchieu WHERE lichchieu.malichchieu = ?", new String[] {String.valueOf(maLC)});
+            rowMaLC = cursor.getCount();
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return (rowMaLC <= 0) ? true : false;
+    }
 }

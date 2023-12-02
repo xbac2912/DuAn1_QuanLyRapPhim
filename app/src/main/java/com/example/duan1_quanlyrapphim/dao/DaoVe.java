@@ -94,6 +94,7 @@ public boolean insertVe(Ve ve) {
     public boolean insertChiTietVe(ChiTietVe chiTietVe) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put("mavechitiet", chiTietVe.getMaVeChiTiet());
         values.put("tenphim", chiTietVe.getTenPhim());
         values.put("giave", chiTietVe.getGiaVe());
         values.put("ngaychieu", chiTietVe.getNgayChieu());
@@ -117,5 +118,16 @@ public boolean insertVe(Ve ve) {
             Log.i(TAG, "Lỗi" + e);
         }
         return (rowMaVe <= 0) ? true : false;
+    }
+    int rowMaCT;
+    public boolean checkMaCT(String maCT) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT mavechitiet FROM chitietve WHERE chitietve.mavechitiet = ?", new String[] {String.valueOf(maCT)});
+            rowMaCT = cursor.getCount();
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return (rowMaCT <= 0) ? true : false;
     }
 }

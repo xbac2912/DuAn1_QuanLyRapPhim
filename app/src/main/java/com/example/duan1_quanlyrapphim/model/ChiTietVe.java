@@ -17,7 +17,8 @@ public class ChiTietVe {
     public ChiTietVe() {
     }
 
-    public ChiTietVe(String tenPhim, int giaVe, String ngayChieu, String phongChieu, String gioChieu, int gheDaChon, int hanSuDung, int maVe, int maLichChieu, int maGhe) {
+    public ChiTietVe(int maVeChiTiet, String tenPhim, int giaVe, String ngayChieu, String phongChieu, String gioChieu, int gheDaChon, int hanSuDung, int maVe, int maLichChieu, int maGhe) {
+        this.maVeChiTiet = maVeChiTiet;
         this.tenPhim = tenPhim;
         this.giaVe = giaVe;
         this.ngayChieu = ngayChieu;

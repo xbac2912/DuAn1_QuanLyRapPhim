@@ -66,6 +66,15 @@ public class DaoGheNgoi {
         }
         return gheDaChon;
     }
+    public boolean insert(soGhe soGhe) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("soghe", soGhe.getSoGhe());
+        values.put("trangthai", soGhe.getTrangThai());
+        values.put("malichchieu", soGhe.getMaLichChieu());
+        long row = db.insert("ghe", null, values);
+        return row > 0;
+    }
     public int UpdateTT(soGhe soGhe, int trangThai) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();

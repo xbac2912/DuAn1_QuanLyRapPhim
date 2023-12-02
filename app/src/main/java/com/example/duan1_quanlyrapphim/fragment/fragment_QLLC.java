@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.adapter.AdapterLichChieu;
 import com.example.duan1_quanlyrapphim.dao.DAOLichChieu;
+import com.example.duan1_quanlyrapphim.dao.DaoGheNgoi;
 import com.example.duan1_quanlyrapphim.dao.DaoKhungGio;
 import com.example.duan1_quanlyrapphim.dao.DaoPhong;
 import com.example.duan1_quanlyrapphim.dao.daoPhim;
@@ -37,9 +38,11 @@ import com.example.duan1_quanlyrapphim.model.KhungGio;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
 import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.Phong;
+import com.example.duan1_quanlyrapphim.model.soGhe;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class fragment_QLLC extends Fragment {
     RecyclerView rvcLichChieu;
@@ -56,6 +59,7 @@ public class fragment_QLLC extends Fragment {
     DaoPhong daoPhong;
     DaoKhungGio daoKhungGio;
     daoPhim daoPhim;
+    DaoGheNgoi daoGheNgoi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,10 +72,7 @@ public class fragment_QLLC extends Fragment {
         daoPhong = new DaoPhong(getContext());
         daoKhungGio = new DaoKhungGio(getContext());
         daoPhim = new daoPhim(getContext());
-
-
-
-
+        daoGheNgoi = new DaoGheNgoi(getContext());
         daoLichChieu = new DAOLichChieu(getContext());
         list = daoLichChieu.selectAll();
         adapterLichChieu = new AdapterLichChieu(getContext(), list);
@@ -145,23 +146,25 @@ public class fragment_QLLC extends Fragment {
                         String khungGio = spnKhungGio.getSelectedItem().toString();
                         String ngay = edtNgayChieu.getText().toString();
 
-
                         if(tenPhim.isEmpty()||phong.isEmpty()||khungGio.isEmpty()||ngay.isEmpty()){
                             Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_SHORT).show();
                             return;
                         }
-
-
-
+                        int maLC;
+                        do {
+                            maLC = new Random().nextInt(999999999);
+                        } while (daoLichChieu.checkMaLC(String.valueOf(maLC)) == false);
+                        lichChieu.setMaLichChieu(maLC);
                         lichChieu.setMaPhong(daoPhong.layMaBangSoPhong(phong));
                         lichChieu.setNgayChieu(ngay);
                         lichChieu.setMaPhim(daoPhim.getMaPhim(tenPhim));
                         lichChieu.setMaKhungGio(daoKhungGio.getMaKhungGio(khungGio));
                         lichChieu.setKhungGio(khungGio);
 
-
-
                         if (daoLichChieu.insert(lichChieu)){
+                            for (int i = 1; i<=20;i++) {
+                                daoGheNgoi.insert(new soGhe( i, 1, lichChieu.getMaLichChieu()));
+                            }
                             list.clear();
                             list.addAll(daoLichChieu.selectAll());
                             adapterLichChieu.notifyDataSetChanged();
@@ -239,7 +242,7 @@ public class fragment_QLLC extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                ngay = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay; // Tháng trong and từ 0-11
+                ngay = selectedYear + "/" + (selectedMonth + 1) + "/" + selectedDay; // Tháng trong and từ 0-11
                 edtNgayChieu.setText(ngay); // Hiển thị ngày đã chọn
             }
         }, year, month, day);

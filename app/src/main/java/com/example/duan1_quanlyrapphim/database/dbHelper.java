@@ -93,7 +93,7 @@ public class dbHelper extends SQLiteOpenHelper {
         db.execSQL(data_khunggio);
         //Bảng lịch chiếu
         String tb_lichchieu = "CREATE TABLE lichchieu(" +
-                "malichchieu INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "malichchieu INTEGER PRIMARY KEY, " +
                 "ngaychieu TEXT NOT NULL, " +
                 "maphong INTEGER REFERENCES phong(maphong), " +
                 "makhunggio INTEGER REFERENCES khunggio(makhunggio), " +
@@ -121,7 +121,7 @@ public class dbHelper extends SQLiteOpenHelper {
         db.execSQL(data_vephim);
         //Bảng chi tiết vé phim
         String tb_chitetve = "CREATE TABLE chitietve(" +
-                "mavechitiet INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "mavechitiet INTEGER PRIMARY KEY, " +
                 "tenphim TEXT NOT NULL, " +
                 "giave INTEGER NOT NULL, " +
                 "ngaychieu TEXT NOT NULL, " +

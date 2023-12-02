@@ -22,9 +22,9 @@ import com.example.duan1_quanlyrapphim.adapter.AdapterGheDaChon;
 import com.example.duan1_quanlyrapphim.adapter.AdapterKhungGio;
 import com.example.duan1_quanlyrapphim.adapter.adapterNgayChieu;
 import com.example.duan1_quanlyrapphim.adapter.adapterSoGhe;
+import com.example.duan1_quanlyrapphim.dao.DAOLichChieu;
 import com.example.duan1_quanlyrapphim.dao.DaoGheNgoi;
 import com.example.duan1_quanlyrapphim.dao.DaoVe;
-import com.example.duan1_quanlyrapphim.dao.daoLichChieu;
 import com.example.duan1_quanlyrapphim.dao.daoPhim;
 import com.example.duan1_quanlyrapphim.model.ChiTietVe;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
@@ -45,7 +45,7 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
     adapterNgayChieu adapterNgayChieu;
     AdapterKhungGio adapterKhungGio;
     RecyclerView rcvSoGhe, rcvNgayChieu, rcvKhungGio;
-    daoLichChieu daoLichChieu;
+    DAOLichChieu daoLichChieu;
     daoPhim daoPhim;
     DaoGheNgoi daoGheNgoi;
     DaoVe daoVe;
@@ -73,7 +73,7 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
                 onBackPressed();
             }
         });
-        daoLichChieu = new daoLichChieu(this);
+        daoLichChieu = new DAOLichChieu(this);
         daoPhim = new daoPhim(this);
         daoGheNgoi = new DaoGheNgoi(this);
         maPhim = getIntent().getStringExtra("maPhim");
@@ -164,13 +164,17 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
                 boolean check = false;
                 int maVe;
                 do {
-                    maVe = new Random().nextInt(899999999)+100000000;
+                    maVe = new Random().nextInt(999999999);
                 } while (daoVe.checkMaVe(String.valueOf(maVe)) == false);
 //                Toast.makeText(XacNhanDatVe.this, "Mã vé: " + maVe, Toast.LENGTH_SHORT).show();
 
                 if (daoVe.insertVe(new Ve( maVe, Integer.valueOf(maTk), Integer.valueOf(maPhim),1))) {
                     for (int i = 0; i<listGheChon.size(); i++) {
-                        if (daoVe.insertChiTietVe(new ChiTietVe( daoPhim.getTenPhim(maPhim), Integer.valueOf(daoPhim.getGiaVe(maPhim)), Ngay, daoLichChieu.getPhong(maPhim, MaLichChieu), daoLichChieu.getGioChieu(maPhim, MaLichChieu), listGheChon.get(i).getSoGhe(), 0, maVe, Integer.valueOf(MaLichChieu), listGheChon.get(i).getMaGhe()))) {
+                        int maChiTietVe;
+                        do {
+                            maChiTietVe = new Random().nextInt(899999999)+100000000;
+                        } while (daoVe.checkMaCT(String.valueOf(maChiTietVe)) == false);
+                        if (daoVe.insertChiTietVe(new ChiTietVe( maChiTietVe, daoPhim.getTenPhim(maPhim), Integer.valueOf(daoPhim.getGiaVe(maPhim)), Ngay, daoLichChieu.getPhong(maPhim, MaLichChieu), daoLichChieu.getGioChieu(maPhim, MaLichChieu), listGheChon.get(i).getSoGhe(), 0, maVe, Integer.valueOf(MaLichChieu), listGheChon.get(i).getMaGhe()))) {
 //                            Toast.makeText(XacNhanDatVe.this, "Lần: " + i, Toast.LENGTH_SHORT).show();
                             if (daoGheNgoi.UpdateTT(listGheChon.get(i), 0) > 0) {
                                 check = true;
