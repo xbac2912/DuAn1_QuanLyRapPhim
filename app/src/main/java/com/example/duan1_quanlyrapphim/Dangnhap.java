@@ -26,7 +26,6 @@ public class Dangnhap extends AppCompatActivity {
 
         ed_email = findViewById(R.id.edt_email);
         ed_pass = findViewById(R.id.edt_pass);
-        tv_forgetpass = findViewById(R.id.tv_forgetpass);
         tv_signup = findViewById(R.id.tv_signup);
         chkNhoMatKhau = findViewById(R.id.chk_nho_mat_khau);
         daoTaiKhoan = new daoTaiKhoan(this);
