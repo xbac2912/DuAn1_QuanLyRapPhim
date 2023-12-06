@@ -157,7 +157,7 @@ public class fragment_QLP extends Fragment {
         ArrayList<Phim> listSearch = new ArrayList<>();
         for (Phim phim : list) {
             if (phim.getTenPhim().toLowerCase().contains(query.toLowerCase()) ||
-                    String.valueOf(phim.getMaPhim()).contains(query)) {
+                    phim.getTenTheLoai().toLowerCase().contains(query.toLowerCase())) {
                 listSearch.add(phim);
             }
         }
