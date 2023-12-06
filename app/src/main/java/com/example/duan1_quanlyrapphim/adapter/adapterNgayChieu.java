@@ -16,17 +16,21 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
-import com.example.duan1_quanlyrapphim.model.Phim;
+import com.example.duan1_quanlyrapphim.XacNhanDatVe;
+import com.example.duan1_quanlyrapphim.model.LichChieu;
 
 import java.util.ArrayList;
 
 public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.ViewHolder> {
     private final Context context;
-    private final ArrayList<Phim> list;
+    private final ArrayList<LichChieu> list;
+    private final XacNhanDatVe xacNhanDatVe;
 
-    public adapterNgayChieu(Context context, ArrayList<Phim> list) {
+
+    public adapterNgayChieu(Context context, ArrayList<LichChieu> list, Activity activity) {
         this.context = context;
         this.list = list;
+        xacNhanDatVe = (XacNhanDatVe) activity;
     }
 
     @NonNull
@@ -36,14 +40,26 @@ public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.View
         View view = inflater.inflate(R.layout.item_ngaychieu, null);
         return new adapterNgayChieu.ViewHolder(view);
     }
+    int check = 0;
+    int viTri = 0;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.tvNgayChieu.setText(String.valueOf(list.get(position).getKhoiChieu()));
+        holder.tvNgayChieu.setText(String.valueOf(list.get(position).getNgayChieu()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+                if (check == 0 && viTri == 0) {
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+                    check++;
+                    viTri = list.get(position).getMaLichChieu();
+                    xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), String.valueOf(list.get(position).getNgayChieu()));
+                } else if (check != 0 && viTri == list.get(position).getMaLichChieu()) {
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
+                    check = 0;
+                    viTri = 0;
+                    xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), "");
+                }
             }
         });
     }

@@ -26,7 +26,6 @@ public class Dangnhap extends AppCompatActivity {
 
         ed_email = findViewById(R.id.edt_email);
         ed_pass = findViewById(R.id.edt_pass);
-        tv_forgetpass = findViewById(R.id.tv_forgetpass);
         tv_signup = findViewById(R.id.tv_signup);
         chkNhoMatKhau = findViewById(R.id.chk_nho_mat_khau);
         daoTaiKhoan = new daoTaiKhoan(this);
@@ -38,11 +37,12 @@ public class Dangnhap extends AppCompatActivity {
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = ed_email.getText().toString();
-                String pass = ed_pass.getText().toString();
+                String email = ed_email.getText().toString().trim();
+                String pass = ed_pass.getText().toString().trim();
                 if (daoTaiKhoan.checklogin(email, pass, 1)) {
                     Intent intent = new Intent(Dangnhap.this, TrangChu_User.class);
                     luuMatKhau(email, pass, chkNhoMatKhau.isChecked());
+                    intent.putExtra("matk", String.valueOf(daoTaiKhoan.getMaTK(email, 1)));
                     startActivity(intent);
                     Toast.makeText(Dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 } else if (daoTaiKhoan.checklogin(email, pass, 0)) {
@@ -51,7 +51,7 @@ public class Dangnhap extends AppCompatActivity {
                     startActivity(intent);
                     Toast.makeText(Dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Dangnhap.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Dangnhap.this, "Tài khoản hoặc mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
                 }
             }
         });

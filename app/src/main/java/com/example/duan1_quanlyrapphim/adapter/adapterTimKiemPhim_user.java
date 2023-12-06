@@ -24,11 +24,14 @@ import java.util.ArrayList;
 public class adapterTimKiemPhim_user extends RecyclerView.Adapter<adapterTimKiemPhim_user.ViewHolder> {
     private final Context context;
     private final ArrayList<Phim> list;
+    private String matk;
 
-    public adapterTimKiemPhim_user(Context context, ArrayList<Phim> list) {
+    public adapterTimKiemPhim_user(Context context, ArrayList<Phim> list, String matk) {
         this.context = context;
         this.list = list;
+        this.matk = matk;
     }
+
 
     @NonNull
     @Override
@@ -50,6 +53,7 @@ public class adapterTimKiemPhim_user extends RecyclerView.Adapter<adapterTimKiem
             public void onClick(View v) {
                 Intent intent = new Intent(context, XacNhanDatVe.class);
                 intent.putExtra("maPhim", String.valueOf(list.get(position).getMaPhim()));
+                intent.putExtra("matk", matk);
                 context.startActivity(intent);
             }
         });

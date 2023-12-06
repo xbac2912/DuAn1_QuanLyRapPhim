@@ -40,10 +40,11 @@ public class TimKiemTheLoai extends AppCompatActivity {
         //
         daoPhim = new daoPhim(this);
         String maTheLoai = getIntent().getExtras().getString("theLoai");
+        String matk = getIntent().getStringExtra("matk");
         getSupportActionBar().setTitle("Thể Loại " + daoPhim.getTenTheLoai(maTheLoai));
         listPhim = daoPhim.selectPhimTheoTheLoai(maTheLoai);
         recyclerView = findViewById(R.id.rcvTheLoai);
-        adapterPhim = new adapterTimKiemPhim_user(this, listPhim);
+        adapterPhim = new adapterTimKiemPhim_user(this, listPhim, matk);
 //        GridLayoutManager layoutManagerPhim = new GridLayoutManager(this, 3);
         LinearLayoutManager layoutManagerPhim = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManagerPhim);

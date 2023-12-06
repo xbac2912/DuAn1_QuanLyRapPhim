@@ -4,22 +4,15 @@ public class soGhe {
     private int maGhe;
     private int SoGhe;
     private int trangThai;
+    private int maLichChieu;
 
     public soGhe() {
     }
 
-    public int getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    public soGhe(int maGhe, int soGhe, int trangThai) {
-        this.maGhe = maGhe;
+    public soGhe(int soGhe, int trangThai, int maLichChieu) {
         SoGhe = soGhe;
         this.trangThai = trangThai;
+        this.maLichChieu = maLichChieu;
     }
 
     public int getMaGhe() {
@@ -36,5 +29,21 @@ public class soGhe {
 
     public void setSoGhe(int soGhe) {
         SoGhe = soGhe;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public int getMaLichChieu() {
+        return maLichChieu;
+    }
+
+    public void setMaLichChieu(int maLichChieu) {
+        this.maLichChieu = maLichChieu;
     }
 }

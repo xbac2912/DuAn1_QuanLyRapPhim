@@ -9,15 +9,11 @@
         android:title="Phim"
         android:icon="@drawable/icontheloai"/>
     <item
-        android:id="@+id/nav_khung_gio"
-        android:title="Khung Giờ"
+        android:id="@+id/nav_lich_chieu"
+        android:title="Lịch Chiếu"
         android:icon="@drawable/icontheloai"/>
     <item
         android:id="@+id/nav_ve_xem"
         android:title="Vé Xem"
         android:icon="@drawable/iconlichsu"/>
-    <item
-        android:id="@+id/nav_tai_khoan"
-        android:title="Tài khoản"
-        android:icon="@drawable/profile"/>
 </menu>

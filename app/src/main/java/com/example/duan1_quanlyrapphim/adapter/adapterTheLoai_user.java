@@ -24,11 +24,14 @@ import java.util.ArrayList;
 public class adapterTheLoai_user extends RecyclerView.Adapter<adapterTheLoai_user.ViewHolder>{
     private final Context context;
     private final ArrayList<TheLoai> list;
+    private String matk;
 
-    public adapterTheLoai_user(Context context, ArrayList<TheLoai> list) {
+    public adapterTheLoai_user(Context context, ArrayList<TheLoai> list, String matk) {
         this.context = context;
         this.list = list;
+        this.matk = matk;
     }
+
 
     @NonNull
     @Override
@@ -47,6 +50,7 @@ public class adapterTheLoai_user extends RecyclerView.Adapter<adapterTheLoai_use
             public void onClick(View v) {
                 Intent intent = new Intent(context, TimKiemTheLoai.class);
                 intent.putExtra("theLoai", String.valueOf(list.get(position).getMaTL()));
+                intent.putExtra("matk", matk);
                 context.startActivity(intent);
             }
         });

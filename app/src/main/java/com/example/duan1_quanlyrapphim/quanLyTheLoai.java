@@ -21,6 +21,8 @@ import androidx.fragment.app.Fragment;
 import com.example.duan1_quanlyrapphim.adapter.AdapterTheLoai_Admin;
 import com.example.duan1_quanlyrapphim.dao.daoTheLoai;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,8 +101,9 @@ public class quanLyTheLoai extends Fragment {
         Dialog dialog = builder.create();
         dialog.show();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        EditText ed_URL_TheLoai,ed_TenTL;
+        TextInputLayout textInputIMGTL = view.findViewById(R.id.textInputIMGTL);
+        TextInputLayout textInputTL = view.findViewById(R.id.textInputTL);
+        TextInputEditText ed_URL_TheLoai,ed_TenTL;
         Button btnAdd, btnHuy;
 
         ed_URL_TheLoai = view.findViewById(R.id.ed_URL_TheLoai);
@@ -111,8 +114,8 @@ public class quanLyTheLoai extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = ed_URL_TheLoai.getText().toString();
-                String tenTL = ed_TenTL.getText().toString();
+                String url = ed_URL_TheLoai.getText().toString().trim();
+                String tenTL = ed_TenTL.getText().toString().trim();
 
                 if(url.isEmpty()||tenTL.isEmpty()){
                     Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_SHORT).show();

@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.XacNhanDatVe;
+import com.example.duan1_quanlyrapphim.dao.DaoGheNgoi;
 import com.example.duan1_quanlyrapphim.model.soGhe;
 
 import java.util.ArrayList;
@@ -23,12 +26,19 @@ import java.util.ArrayList;
 public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> {
     private final Context context;
     private final ArrayList<soGhe> list;
+    DaoGheNgoi daoGheNgoi;
+    soGhe soGhe;
+    XacNhanDatVe xacNhanDatVe;
+    private DataClickListener dataClickListener;
+    ArrayList<soGhe> listGhe = new ArrayList<>();
 
-    public adapterSoGhe(Context context, ArrayList<soGhe> list) {
+    public adapterSoGhe(Context context, ArrayList<soGhe> list, Activity activity, DataClickListener dataClickListener) {
         this.context = context;
         this.list = list;
+        xacNhanDatVe = (XacNhanDatVe) activity;
+        this.dataClickListener = dataClickListener;
+        daoGheNgoi = new DaoGheNgoi(context);
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,17 +52,22 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
         if (list.get(position).getTrangThai() == 0) {
             holder.layout.setBackground(new ColorDrawable(Color.parseColor("#FF0000")));
         } else if (list.get(position).getTrangThai() == 1) {
-            holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+            holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
         }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soGhe = list.get(position);
                 if (list.get(position).getTrangThai() == 1) {
                     list.get(position).setTrangThai(2);
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#EF7415")));
+                    listGhe.add(soGhe);
+                    dataClickListener.onDataClick(listGhe);
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
                 } else if (list.get(position).getTrangThai() == 2) {
                     list.get(position).setTrangThai(1);
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+                    listGhe.remove(soGhe);
+                    dataClickListener.onDataClick(listGhe);
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
                 }
             }
         });
@@ -73,5 +88,8 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
             cardView = itemView.findViewById(R.id.card_view);
             layout = itemView.findViewById(R.id.line1);
         }
+    }
+    public interface DataClickListener {
+        void onDataClick(ArrayList<soGhe> listGheDaChon); // Thay đổi kiểu dữ liệu theo nhu cầu của bạn
     }
 }

@@ -6,7 +6,7 @@
         android:icon="@drawable/home"/>
     <item
         android:id="@+id/nav_lich_su"
-        android:title="Lịch sử đặt vé"
+        android:title="Vé của tôi"
         android:icon="@drawable/iconlichsu"/>
     <item
         android:id="@+id/nav_tai_khoan"
