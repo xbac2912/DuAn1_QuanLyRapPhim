@@ -184,7 +184,7 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
 //        Toast.makeText(this, ""+daoLichChieu.getGioChieu(maPhim, MaLichChieu), Toast.LENGTH_SHORT).show();
 //        txtGhe.setText(String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)));
 //        Toast.makeText(this, String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)), Toast.LENGTH_SHORT).show();
-        txtThanhToan.setText("Tiền mặt");
+        txtThanhToan.setText("Thanh toán online");
         txtTongTien.setText(String.valueOf(Integer.valueOf(daoPhim.getGiaVe(maPhim)) * listGheChon.size()));
         Calendar calendar = Calendar.getInstance();
         nam = calendar.get(Calendar.YEAR);
