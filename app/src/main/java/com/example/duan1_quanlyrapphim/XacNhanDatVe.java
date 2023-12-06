@@ -7,14 +7,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +40,8 @@ import com.example.duan1_quanlyrapphim.model.Ve;
 import com.example.duan1_quanlyrapphim.model.soGhe;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1_quanlyrapphim.adapter.adapterSoGhe.DataClickListener {
@@ -53,7 +61,11 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
     String maPhim, maTk;
     String Ngay, MaLichChieu;
     ArrayList<soGhe> listGheChon = new ArrayList<>();
-    Dangnhap dangnhap;
+    Spinner spnThanhToan;
+    Button btnThanhToan;
+    int checkThanhToan = 1;
+    android.icu.text.SimpleDateFormat  sdf = new SimpleDateFormat("yyyy/MM/dd");
+    int ngay, thang, nam;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,12 +116,29 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
         findViewById(R.id.btnDatVe).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenDialog_XacNhanDatVe(maPhim);
-//                if ( > 0) {
-//                    OpenDialog_XacNhanDatVe(maPhim);
-//                } else {
-//                    Toast.makeText(XacNhanDatVe.this, "Vui lòng chọn lịch và ghế xem phim", Toast.LENGTH_SHORT).show();
-//                }
+                if (listGheChon.size() > 0) {
+                    OpenDialog_XacNhanDatVe(maPhim);
+                } else {
+                    Toast.makeText(XacNhanDatVe.this, "Vui lòng chọn lịch và ghế xem phim", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //
+        spnThanhToan = findViewById(R.id.spnThanhToan);
+        ArrayList<String> thanhToanArr = new ArrayList<>();
+        thanhToanArr.add("Thanh Toán Online");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thanhToanArr);
+        spnThanhToan.setAdapter(adapter);
+        btnThanhToan = findViewById(R.id.btnThanhToan);
+        btnThanhToan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listGheChon.size() > 0) {
+                    OpenDialog_ThanhToan();
+                } else {
+                    Toast.makeText(XacNhanDatVe.this, "Vui lòng chọn vị trí để thanh toán", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -157,7 +186,12 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
 //        Toast.makeText(this, String.valueOf(daoGheNgoi.gheDaChon(MaLichChieu, 2)), Toast.LENGTH_SHORT).show();
         txtThanhToan.setText("Tiền mặt");
         txtTongTien.setText(String.valueOf(Integer.valueOf(daoPhim.getGiaVe(maPhim)) * listGheChon.size()));
-
+        Calendar calendar = Calendar.getInstance();
+        nam = calendar.get(Calendar.YEAR);
+        thang = calendar.get(Calendar.MONTH);
+        ngay = calendar.get(Calendar.DAY_OF_MONTH);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar( nam, thang, ngay);
+        String ngayMua = sdf.format(gregorianCalendar.getTime());
         view.findViewById(R.id.btnXacNhan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,13 +202,13 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
                 } while (daoVe.checkMaVe(String.valueOf(maVe)) == false);
 //                Toast.makeText(XacNhanDatVe.this, "Mã vé: " + maVe, Toast.LENGTH_SHORT).show();
 
-                if (daoVe.insertVe(new Ve( maVe, Integer.valueOf(maTk), Integer.valueOf(maPhim),1))) {
+                if (daoVe.insertVe(new Ve( maVe, Integer.valueOf(maTk), Integer.valueOf(maPhim),checkThanhToan))) {
                     for (int i = 0; i<listGheChon.size(); i++) {
                         int maChiTietVe;
                         do {
                             maChiTietVe = new Random().nextInt(899999999)+100000000;
                         } while (daoVe.checkMaCT(String.valueOf(maChiTietVe)) == false);
-                        if (daoVe.insertChiTietVe(new ChiTietVe( maChiTietVe, daoPhim.getTenPhim(maPhim), Integer.valueOf(daoPhim.getGiaVe(maPhim)), Ngay, daoLichChieu.getPhong(maPhim, MaLichChieu), daoLichChieu.getGioChieu(maPhim, MaLichChieu), listGheChon.get(i).getSoGhe(), 0, maVe, Integer.valueOf(MaLichChieu), listGheChon.get(i).getMaGhe()))) {
+                        if (daoVe.insertChiTietVe(new ChiTietVe( maChiTietVe, daoPhim.getTenPhim(maPhim), Integer.valueOf(daoPhim.getGiaVe(maPhim)), Ngay, daoLichChieu.getPhong(maPhim, MaLichChieu), daoLichChieu.getGioChieu(maPhim, MaLichChieu), listGheChon.get(i).getSoGhe(), checkThanhToan, ngayMua, maVe, Integer.valueOf(MaLichChieu), listGheChon.get(i).getMaGhe()))) {
 //                            Toast.makeText(XacNhanDatVe.this, "Lần: " + i, Toast.LENGTH_SHORT).show();
                             if (daoGheNgoi.UpdateTT(listGheChon.get(i), 0) > 0) {
                                 check = true;
@@ -202,9 +236,30 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
             }
         });
     }
-
     @Override
     public void onDataClick(ArrayList<soGhe> listGheDaChon) {
         listGheChon = listGheDaChon;
+    }
+    public void OpenDialog_ThanhToan() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.warning);
+        builder.setTitle("WARNING");
+        builder.setMessage("Bạn có muốn thanh toán không?\nGiá vé: " + Integer.valueOf(daoPhim.getGiaVe(maPhim)) * listGheChon.size() + " VNĐ");
+        builder.setPositiveButton("Thanh Toán", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                checkThanhToan = 0;
+                Toast.makeText(XacNhanDatVe.this, "Thanh Toán thành công", Toast.LENGTH_SHORT).show();
+                OpenDialog_XacNhanDatVe(maPhim);
+            }
+        });
+        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
     }
 }

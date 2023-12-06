@@ -56,7 +56,7 @@ public class fragment_trangchu extends Fragment {
         daoTheLoai = new daoTheLoai(getContext());
         listTL = daoTheLoai.selectAll();
         rcvTheLoai = view.findViewById(R.id.rcvTheLoai);
-        adapterTheLoai = new adapterTheLoai_user(getContext(), listTL);
+        adapterTheLoai = new adapterTheLoai_user(getContext(), listTL, matk);
         LinearLayoutManager layoutManagerTL = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rcvTheLoai.setLayoutManager(layoutManagerTL);
         rcvTheLoai.setAdapter(adapterTheLoai);

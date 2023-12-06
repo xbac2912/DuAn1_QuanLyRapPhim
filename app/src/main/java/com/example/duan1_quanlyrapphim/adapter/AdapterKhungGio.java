@@ -53,8 +53,8 @@ public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHo
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
                     viTri = list.get(position).getMaLichChieu();
                     xacNhanDatVe.getSoGhe(String.valueOf(list.get(position).getMaLichChieu()));
-                    Toast.makeText(context, "Khung giờ: " + list.get(position).getMaKhungGio(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(context, String.valueOf(viTri), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Khung giờ: " + list.get(position).getMaKhungGio(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, String.valueOf(viTri), Toast.LENGTH_SHORT).show();
                 } else if (check != 0 && viTri == list.get(position).getMaLichChieu()) {
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
                     viTri = 0;

@@ -80,7 +80,7 @@ public class daoPhim {
     public boolean insert(Phim phim) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("maphim", phim.getMaPhim());
+//        values.put("maphim", phim.getMaPhim());
         values.put("imgphim", phim.getImgPhim());
         values.put("tenphim", phim.getTenPhim());
         values.put("mota", phim.getMoTa());
@@ -95,7 +95,7 @@ public class daoPhim {
     public boolean update(Phim phim) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("maphim", phim.getMaPhim());
+//        values.put("maphim", phim.getMaPhim());
         values.put("imgphim", phim.getImgPhim());
         values.put("tenphim", phim.getTenPhim());
         values.put("mota", phim.getMoTa());

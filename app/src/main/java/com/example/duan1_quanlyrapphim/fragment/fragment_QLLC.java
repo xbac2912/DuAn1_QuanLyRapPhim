@@ -160,8 +160,9 @@ public class fragment_QLLC extends Fragment {
                         lichChieu.setMaPhim(daoPhim.getMaPhim(tenPhim));
                         lichChieu.setMaKhungGio(daoKhungGio.getMaKhungGio(khungGio));
                         lichChieu.setKhungGio(khungGio);
-
-                        if (daoLichChieu.insert(lichChieu)){
+                        if (daoLichChieu.checkLC(lichChieu.getNgayChieu(), String.valueOf(lichChieu.getMaPhong()), String.valueOf(lichChieu.getMaKhungGio()))) {
+                            Toast.makeText(getContext(), "Lịch chiếu đã tồn tại", Toast.LENGTH_SHORT).show();
+                        } else if (daoLichChieu.insert(lichChieu)){
                             for (int i = 1; i<=20;i++) {
                                 daoGheNgoi.insert(new soGhe( i, 1, lichChieu.getMaLichChieu()));
                             }
@@ -170,7 +171,7 @@ public class fragment_QLLC extends Fragment {
                             adapterLichChieu.notifyDataSetChanged();
                             dialog.dismiss();
                             Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(getContext(), "Lỗi thêm", Toast.LENGTH_SHORT).show();
                         }
                     }

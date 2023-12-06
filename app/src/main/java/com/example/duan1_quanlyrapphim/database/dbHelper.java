@@ -25,7 +25,7 @@ public class dbHelper extends SQLiteOpenHelper {
                 "vaitro INTEGER NOT NULL)";
         String data_account = "INSERT INTO account VALUES " +
                 "( 1, 'admin', 'admin@gmail.com', '123', 0)," +
-                "( 2, 'user', 'user@gmail.com', 'user', 1)";
+                "( 2, 'user', 'user@gmail.com', '123', 1)";
         db.execSQL(tb_account);
         db.execSQL(data_account);
         //Bảng thể loại
@@ -51,21 +51,14 @@ public class dbHelper extends SQLiteOpenHelper {
                 "trangthai int NOT NULL, " +
                 "matheloai INTEGER REFERENCES theloai(matheloai))";
         String data_phim = "INSERT INTO phim VALUES " +
-                "( 1, 'https://i.ytimg.com/vi/fVWlCV9_n7w/maxresdefault.jpg', 'Hành Động', 'Phim hay', 100000, '2023/12/29', 0, 1)," +
-                "( 2, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 3, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 1', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 4, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 2', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 5, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 3', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 6, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 4', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 7, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 5', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 8, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 6', 'Phim hay', 600000, '2023/12/28', 0, 2)," +
-                "( 9, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn', 'Phim hay', 70000, '2023/12/24', 0, 3)," +
-                "( 10, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 1', 'Phim hay', 70000, '2023/12/24', 0, 3)," +
-                "( 11, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 2', 'Phim hay', 70000, '2023/12/24', 0, 3)," +
-                "( 12, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 3', 'Phim hay', 70000, '2023/12/24', 0, 3)," +
-                "( 13, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 4', 'Phim hay', 70000, '2023/12/24', 0, 3)," +
-                "( 14, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 5', 'Phim hay', 70000, '2023/12/24', 0, 3)," +
-                "( 15, 'https://bapcai.vn/wp-content/uploads/2021/07/truyen-hai-huoc-8.jpg', 'Hài Hước', 'Phim hay', 90000, '2023/12/23', 0, 4)";
+                "( 1, 'https://i.ytimg.com/vi/fVWlCV9_n7w/maxresdefault.jpg', 'Hành Động 1', 'Phim hay', 100000, '2023/12/29', 0, 1)," +
+                "( 2, 'https://i.ytimg.com/vi/fVWlCV9_n7w/maxresdefault.jpg', 'Hành Động 2', 'Phim hay', 120000, '2023/12/28', 0, 1)," +
+                "( 3, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 1', 'Phim hay', 90000, '2023/12/28', 0, 2)," +
+                "( 4, 'https://i.ytimg.com/vi/RGU2J4Qi2kk/maxresdefault.jpg', 'Hoạt Hình 2', 'Phim hay', 95000, '2023/12/29', 0, 2)," +
+                "( 5, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 1', 'Phim hay', 800000, '2023/12/28', 0, 3)," +
+                "( 6, 'https://bau.vn/wp-content/uploads/2021/07/phim-tinh-cam-my.jpg', 'Lãng Mạn 2', 'Phim hay', 80000, '2023/12/28', 0, 3)," +
+                "( 7, 'https://bapcai.vn/wp-content/uploads/2021/07/truyen-hai-huoc-8.jpg', 'Hài Hước 1', 'Phim hay', 50000, '2023/12/28', 0, 4)," +
+                "( 8, 'https://bapcai.vn/wp-content/uploads/2021/07/truyen-hai-huoc-8.jpg', 'Hài Hước 2', 'Phim hay', 50000, '2023/12/28', 0, 4)";
         db.execSQL(tb_phim);
         db.execSQL(data_phim);
         //Bảng phòng
@@ -100,10 +93,10 @@ public class dbHelper extends SQLiteOpenHelper {
                 "maphim INTEGER REFERENCES phim(maphim))";
         String data_lichchieu = "INSERT INTO lichchieu VALUES " +
                 "( 1, '2023/11/25', 1, 1, 1)," +
-                "( 2, '2023/11/26', 1, 2, 1)," +
-                "( 3, '2023/11/27', 2, 2, 2)," +
-                "( 4, '2023/11/27', 3, 3, 3)," +
-                "( 5, '2023/11/23', 4, 4, 4)";
+                "( 2, '2023/11/26', 1, 2, 2)," +
+                "( 3, '2023/11/27', 2, 2, 3)," +
+                "( 4, '2023/11/27', 3, 3, 4)," +
+                "( 5, '2023/11/23', 4, 4, 5)";
         db.execSQL(tb_lichchieu);
         db.execSQL(data_lichchieu);
         //Bảng vé phim
@@ -128,7 +121,8 @@ public class dbHelper extends SQLiteOpenHelper {
                 "phongchieu TEXT NOT NULL, " +
                 "giochieu TEXT NOT NULL, " +
                 "ghedachon INTEGER NOT NULL, " +
-                "hansudung INTEGER NOT NULL," +
+                "trangthaitt INTEGER NOT NULL," +
+                "ngaymua TEXT NOT NULL, " +
                 "mave INTEGER REFERENCES ve(mave)," +
                 "malichchieu INTEGER REFERENCES lichchieu(malichchieu)," +
                 "maghe INTEGER REFERENCES ghe(maghe))";

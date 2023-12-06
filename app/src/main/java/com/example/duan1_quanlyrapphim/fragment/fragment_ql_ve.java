@@ -34,8 +34,8 @@ public class fragment_ql_ve extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ql, container, false);
         rcvVe = view.findViewById(R.id.rcvPhim);
         daoVe = new DaoVe(getContext());
-        list = daoVe.selectAll1();
-        adapterChiTietVe = new AdapterChiTietVe(getContext(), list);
+        list = daoVe.selectAll_admin();
+        adapterChiTietVe = new AdapterChiTietVe(getContext(), list, "admin");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcvVe.setLayoutManager(linearLayoutManager);
         rcvVe.setAdapter(adapterChiTietVe);

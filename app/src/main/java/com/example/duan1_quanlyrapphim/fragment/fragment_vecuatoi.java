@@ -45,7 +45,7 @@ public class fragment_vecuatoi extends Fragment {
         rcvVeCuaToi = view.findViewById(R.id.rcvVeCuaToi);
         daoVe = new DaoVe(getContext());
         list = daoVe.selectAll(matk);
-        adapterChiTietVe = new AdapterChiTietVe(getContext(), list);
+        adapterChiTietVe = new AdapterChiTietVe(getContext(), list, "user");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcvVeCuaToi.setLayoutManager(linearLayoutManager);
         rcvVeCuaToi.setAdapter(adapterChiTietVe);

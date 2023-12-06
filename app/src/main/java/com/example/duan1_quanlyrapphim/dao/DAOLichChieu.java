@@ -213,4 +213,10 @@ public class DAOLichChieu {
         }
         return (rowMaLC <= 0) ? true : false;
     }
+    public boolean checkLC(String ngayChieu, String Phong, String khungGio) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM lichchieu WHERE lichchieu.ngaychieu=? AND lichchieu.maphong=? AND lichchieu.makhunggio=?", new String[] {ngayChieu, Phong, khungGio});
+        long row = cursor.getCount();
+        return (row > 0) ? true : false;
+    }
 }

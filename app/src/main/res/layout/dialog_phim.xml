@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:paddingHorizontal="10dp"
     android:orientation="vertical">
@@ -52,46 +53,92 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginBottom="5dp"/>
-        <EditText
-            android:id="@+id/txtAnhPhim"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputAP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="URL ảnh phim"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="5dp"
-            android:padding="10dp"/>
-        <EditText
-            android:id="@+id/txtTenPhim"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtAnhPhim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputTP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="Nhập tên phim"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="5dp"
-            android:padding="10dp"/>
-        <EditText
-            android:id="@+id/txtMoTa"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtTenPhim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputMT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="Nhập mô tả"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="5dp"
-            android:padding="10dp"/>
-        <EditText
-            android:id="@+id/txtGiaVe"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtMoTa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputGV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="Nhập giá vé"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="5dp"
-            android:padding="10dp"/>
-        <EditText
-            android:id="@+id/txtKhoiChieu"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtGiaVe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputKC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập ngày khởi chiếu"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            android:padding="10dp"/>
+            app:hintTextColor="#000000"
+            android:hint="Nhập ngày khởi chiếu"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtKhoiChieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

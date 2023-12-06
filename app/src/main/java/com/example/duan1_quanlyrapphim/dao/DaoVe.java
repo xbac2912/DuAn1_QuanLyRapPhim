@@ -37,11 +37,12 @@ public class DaoVe {
                     chiTietVe.setPhongChieu(cursor.getString(4));
                     chiTietVe.setGioChieu(cursor.getString(5));
                     chiTietVe.setGheDaChon(cursor.getInt(6));
-                    chiTietVe.setHanSuDung(cursor.getInt(7));
-                    chiTietVe.setMaVe(cursor.getInt(8));
-                    chiTietVe.setMaLichChieu(cursor.getInt(9));
-                    chiTietVe.setMaGhe(cursor.getInt(10));
-                    chiTietVe.setEmail(cursor.getString(17));
+                    chiTietVe.setTtThanhToan(cursor.getInt(7));
+                    chiTietVe.setNgayMua(cursor.getString(8));
+                    chiTietVe.setMaVe(cursor.getInt(9));
+                    chiTietVe.setMaLichChieu(cursor.getInt(10));
+                    chiTietVe.setMaGhe(cursor.getInt(11));
+                    chiTietVe.setEmail(cursor.getString(18));
                     list.add(chiTietVe);
                     cursor.moveToNext();
                 }
@@ -51,7 +52,7 @@ public class DaoVe {
         }
         return list;
     }
-    public ArrayList<ChiTietVe> selectAll1() {
+    public ArrayList<ChiTietVe> selectAll_admin() {
         ArrayList<ChiTietVe> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
@@ -67,11 +68,12 @@ public class DaoVe {
                     chiTietVe.setPhongChieu(cursor.getString(4));
                     chiTietVe.setGioChieu(cursor.getString(5));
                     chiTietVe.setGheDaChon(cursor.getInt(6));
-                    chiTietVe.setHanSuDung(cursor.getInt(7));
-                    chiTietVe.setMaVe(cursor.getInt(8));
-                    chiTietVe.setMaLichChieu(cursor.getInt(9));
-                    chiTietVe.setMaGhe(cursor.getInt(10));
-                    chiTietVe.setEmail(cursor.getString(17));
+                    chiTietVe.setTtThanhToan(cursor.getInt(7));
+                    chiTietVe.setNgayMua(cursor.getString(8));
+                    chiTietVe.setMaVe(cursor.getInt(9));
+                    chiTietVe.setMaLichChieu(cursor.getInt(10));
+                    chiTietVe.setMaGhe(cursor.getInt(11));
+                    chiTietVe.setEmail(cursor.getString(18));
                     list.add(chiTietVe);
                     cursor.moveToNext();
                 }
@@ -101,7 +103,8 @@ public boolean insertVe(Ve ve) {
         values.put("phongchieu", chiTietVe.getPhongChieu());
         values.put("giochieu", chiTietVe.getGioChieu());
         values.put("ghedachon", chiTietVe.getGheDaChon());
-        values.put("hansudung", chiTietVe.getHanSuDung());
+        values.put("trangthaitt", chiTietVe.getTtThanhToan());
+        values.put("ngaymua", chiTietVe.getNgayMua());
         values.put("mave", chiTietVe.getMaVe());
         values.put("malichchieu", chiTietVe.getMaLichChieu());
         values.put("maghe", chiTietVe.getMaGhe());
@@ -129,5 +132,33 @@ public boolean insertVe(Ve ve) {
             Log.i(TAG, "Lỗi" + e);
         }
         return (rowMaCT <= 0) ? true : false;
+    }
+    public int UpdateTT(ChiTietVe chiTietVe) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("trangthaitt", 0);
+
+        String[] index = new String[]{
+                String.valueOf(chiTietVe.getMaVeChiTiet())
+
+        };
+        return db.update("chitietve", values, "mavechitiet=?", index);
+    }
+    public int getDoanhThu(String tuNgay, String denNgay) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        ArrayList<Integer> list = new ArrayList<>();
+        try {
+            Cursor cursor =db.rawQuery("SELECT SUM(giave) FROM chitietve WHERE ngaymua BETWEEN ? AND ? AND trangthaitt=0", new String[] {tuNgay, denNgay});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    list.add(cursor.getInt(0));
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list.get(0);
     }
 }

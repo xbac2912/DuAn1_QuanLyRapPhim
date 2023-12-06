@@ -16,8 +16,4 @@
         android:id="@+id/nav_ve_xem"
         android:title="Vé Xem"
         android:icon="@drawable/iconlichsu"/>
-    <item
-        android:id="@+id/nav_tai_khoan"
-        android:title="Tài khoản"
-        android:icon="@drawable/profile"/>
 </menu>

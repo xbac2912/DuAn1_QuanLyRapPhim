@@ -8,8 +8,9 @@ public class ChiTietVe {
     private String phongChieu;
     private String gioChieu;
     private int gheDaChon;
-    private int hanSuDung;
     private String email;
+    private int ttThanhToan;
+    private String ngayMua;
     private int maVe;
     private int maLichChieu;
     private int maGhe;
@@ -17,7 +18,7 @@ public class ChiTietVe {
     public ChiTietVe() {
     }
 
-    public ChiTietVe(int maVeChiTiet, String tenPhim, int giaVe, String ngayChieu, String phongChieu, String gioChieu, int gheDaChon, int hanSuDung, int maVe, int maLichChieu, int maGhe) {
+    public ChiTietVe(int maVeChiTiet, String tenPhim, int giaVe, String ngayChieu, String phongChieu, String gioChieu, int gheDaChon, int ttThanhToan, String ngayMua, int maVe, int maLichChieu, int maGhe) {
         this.maVeChiTiet = maVeChiTiet;
         this.tenPhim = tenPhim;
         this.giaVe = giaVe;
@@ -25,10 +26,27 @@ public class ChiTietVe {
         this.phongChieu = phongChieu;
         this.gioChieu = gioChieu;
         this.gheDaChon = gheDaChon;
-        this.hanSuDung = hanSuDung;
+        this.ttThanhToan = ttThanhToan;
+        this.ngayMua = ngayMua;
         this.maVe = maVe;
         this.maLichChieu = maLichChieu;
         this.maGhe = maGhe;
+    }
+
+    public String getNgayMua() {
+        return ngayMua;
+    }
+
+    public void setNgayMua(String ngayMua) {
+        this.ngayMua = ngayMua;
+    }
+
+    public int getTtThanhToan() {
+        return ttThanhToan;
+    }
+
+    public void setTtThanhToan(int ttThanhToan) {
+        this.ttThanhToan = ttThanhToan;
     }
 
     public String getEmail() {
@@ -117,13 +135,5 @@ public class ChiTietVe {
 
     public void setGheDaChon(int gheDaChon) {
         this.gheDaChon = gheDaChon;
-    }
-
-    public int getHanSuDung() {
-        return hanSuDung;
-    }
-
-    public void setHanSuDung(int hanSuDung) {
-        this.hanSuDung = hanSuDung;
     }
 }

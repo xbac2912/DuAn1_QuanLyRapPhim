@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,19 +31,20 @@ import com.example.duan1_quanlyrapphim.dao.daoPhim;
 import com.example.duan1_quanlyrapphim.dao.daoTheLoai;
 import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class fragment_QLP extends Fragment {
     RecyclerView recyclerView;
-    SearchView searchView;
     daoPhim daoPhim;
     adapterPhim_admin adapterPhim_admin;
     private ArrayList<Phim> list = new ArrayList<>();
-    EditText txtAnhPhim, txtTenPhim, txtMoTa, txtGiaVe, txtKhoiChieu;
+    TextInputEditText txtAnhPhim, txtTenPhim, txtMoTa, txtGiaVe, txtKhoiChieu;
     Spinner spnLoaiPhim;
     daoTheLoai daoTheLoai;
+    EditText edtSearch;
     int maTheLoai;
     public fragment_QLP() {
         // Required empty public constructor
@@ -69,6 +72,24 @@ public class fragment_QLP extends Fragment {
             @Override
             public void onClick(View v) {
                 OpenDialog_Them();
+            }
+        });
+        //
+        edtSearch = view.findViewById(R.id.edtSearch);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                handleSearch(s.toString());
             }
         });
         return view;
@@ -109,7 +130,7 @@ public class fragment_QLP extends Fragment {
         view.findViewById(R.id.btnThem).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String anhPhim = txtAnhPhim.getText().toString();
+                String anhPhim = txtAnhPhim.getText().toString().trim();
                 String tenPhim = txtTenPhim.getText().toString().trim();
                 String moTa = txtMoTa.getText().toString().trim();
                 String giaVe = txtGiaVe.getText().toString().trim();
@@ -131,5 +152,16 @@ public class fragment_QLP extends Fragment {
                 dialog.dismiss();
             }
         });
+    }
+    private void handleSearch(String query) {
+        ArrayList<Phim> listSearch = new ArrayList<>();
+        for (Phim phim : list) {
+            if (phim.getTenPhim().toLowerCase().contains(query.toLowerCase()) ||
+                    String.valueOf(phim.getMaPhim()).contains(query)) {
+                listSearch.add(phim);
+            }
+        }
+        adapterPhim_admin = new adapterPhim_admin(getContext(), listSearch);
+        recyclerView.setAdapter(adapterPhim_admin);
     }
 }
