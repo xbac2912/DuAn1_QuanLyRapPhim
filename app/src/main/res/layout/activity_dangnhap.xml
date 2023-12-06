@@ -69,15 +69,6 @@
           android:layout_height="wrap_content"
           android:checked="true"
           android:text="Nhớ mật khẩu"/>
-      <TextView
-          android:id="@+id/tv_forgetpass"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="17dp"
-          android:text="Forget Password"
-          android:textColor="#3391DC"
-          android:textStyle="bold"
-          android:layout_marginLeft="90dp"/>
   </LinearLayout>
 
   <Button
