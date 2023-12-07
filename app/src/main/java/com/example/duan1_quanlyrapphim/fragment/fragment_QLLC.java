@@ -187,7 +187,6 @@ public class fragment_QLLC extends Fragment {
 
         return view;
     }
-
     private void handleSearch(String query) {
         ArrayList<LichChieu> listSearch = new ArrayList<>();
         for (LichChieu lichChieu : list) {
@@ -200,6 +199,7 @@ public class fragment_QLLC extends Fragment {
         adapterLichChieu = new AdapterLichChieu(getContext(), listSearch);
         rvcLichChieu.setAdapter(adapterLichChieu);
     }
+
 
     private ArrayList<String> getTenPhimList() {
         daoPhim dao = new daoPhim(getContext());
