@@ -7,13 +7,13 @@
     <item
         android:id="@+id/nav_phim"
         android:title="Phim"
-        android:icon="@drawable/icontheloai"/>
+        android:icon="@drawable/phim_menu"/>
     <item
         android:id="@+id/nav_lich_chieu"
         android:title="Lịch Chiếu"
-        android:icon="@drawable/icontheloai"/>
+        android:icon="@drawable/lichchieu_icon"/>
     <item
         android:id="@+id/nav_ve_xem"
         android:title="Vé Xem"
-        android:icon="@drawable/iconlichsu"/>
+        android:icon="@drawable/vexem_icon"/>
 </menu>
