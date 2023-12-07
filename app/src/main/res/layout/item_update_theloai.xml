@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:cardCornerRadius="20dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,82 +12,88 @@
         android:padding="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Cập nhật thể loại"
-            android:textColor="#F30A0A"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="URL ảnh thể loại"
-            android:textColor="@color/black"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/ed_URL_TheLoai"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:text="UPDATE THỂ LOẠI"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#8692F7"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputIMGTL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="Nhập URL của ảnh"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="23sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Tên thể loại"
-            android:textColor="@color/black"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/ed_TenTL"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_URL_TheLoai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--        <EditText-->
+        <!--            android:id="@+id/ed_URL_TheLoai"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:hint="Nhập URL của ảnh"-->
+        <!--            android:inputType="text"-->
+        <!--            android:paddingLeft="10dp"-->
+        <!--            android:textSize="23sp" />-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputTL"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
             android:hint="Nhập thể loại"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="23sp" />
-
-
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_TenTL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--        <EditText-->
+        <!--            android:id="@+id/ed_TenTL"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:hint="Nhập thể loại"-->
+        <!--            android:inputType="text"-->
+        <!--            android:paddingLeft="10dp"-->
+        <!--            android:textSize="23sp" />-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="end"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnSua"
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="50dp"
-                android:background="#9AD2FC"
-                android:text="Cập nhật"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
-
             <Button
                 android:id="@+id/btnHuy"
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                android:background="#F95B5B"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
                 android:text="Hủy"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textColor="#8692F7"
+                android:background="#00000000"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnSua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:textColor="#8692F7"
+                android:background="#00000000"
+                android:textStyle="bold" />
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

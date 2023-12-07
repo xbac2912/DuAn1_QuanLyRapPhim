@@ -22,10 +22,13 @@ public class dbHelper extends SQLiteOpenHelper {
                 "tennguoidung TEXT NOT NULL, " +
                 "email TEXT NOT NULL, " +
                 "matkhau TEXT NOT NULL, " +
+                "gioitinh INTEGER NOT NULL, " +
+                "ngaysinh TEXT NOT NULL, " +
+                "sodienthoai TEXT NOT NULL, " +
                 "vaitro INTEGER NOT NULL)";
         String data_account = "INSERT INTO account VALUES " +
-                "( 1, 'admin', 'admin@gmail.com', '123', 0)," +
-                "( 2, 'user', 'user@gmail.com', '123', 1)";
+                "( 1, 'admin', 'admin@gmail.com', '123', 1, '29/12/2004', '0865029587',0)," +
+                "( 2, 'user', 'user@gmail.com', '123', 1, '20/10/2004', '0865027821',1)";
         db.execSQL(tb_account);
         db.execSQL(data_account);
         //Bảng thể loại

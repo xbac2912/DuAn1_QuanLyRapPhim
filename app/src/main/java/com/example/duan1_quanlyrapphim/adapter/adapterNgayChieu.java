@@ -59,6 +59,7 @@ public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.View
                     check = 0;
                     viTri = 0;
                     xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), "");
+                    xacNhanDatVe.getSoGhe("");
                 }
             }
         });

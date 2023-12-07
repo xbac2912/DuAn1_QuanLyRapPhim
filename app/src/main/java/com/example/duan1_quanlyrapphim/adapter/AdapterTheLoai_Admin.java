@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.dao.daoTheLoai;
 import com.example.duan1_quanlyrapphim.model.TheLoai;
+import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -120,7 +121,7 @@ public class AdapterTheLoai_Admin extends BaseAdapter {
                 dialog.show();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                EditText ed_URL_TheLoai,ed_TenTL;
+                TextInputEditText ed_URL_TheLoai,ed_TenTL;
                 Button btnSua, btnHuy;
 
                 ed_URL_TheLoai = view.findViewById(R.id.ed_URL_TheLoai);

@@ -15,10 +15,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.dao.DaoVe;
+import com.example.duan1_quanlyrapphim.fragment.fragment_vecuatoi;
 import com.example.duan1_quanlyrapphim.model.ChiTietVe;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class AdapterChiTietVe extends RecyclerView.Adapter<AdapterChiTietVe.View
     private final ArrayList<ChiTietVe> list;
     private String matk;
     private DaoVe daoVe;
+    private fragment_vecuatoi fragment_vecuatoi;
 
     public AdapterChiTietVe(Context context, ArrayList<ChiTietVe> list, String matk) {
         this.context = context;
@@ -35,8 +38,12 @@ public class AdapterChiTietVe extends RecyclerView.Adapter<AdapterChiTietVe.View
         this.matk = matk;
         daoVe = new DaoVe(context);
     }
-
-
+    public AdapterChiTietVe(Context context, ArrayList<ChiTietVe> list, String matk, Fragment fragment) {
+        this.context = context;
+        this.list = list;
+        this.matk = matk;
+        fragment_vecuatoi = (com.example.duan1_quanlyrapphim.fragment.fragment_vecuatoi) fragment;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -78,7 +85,6 @@ public class AdapterChiTietVe extends RecyclerView.Adapter<AdapterChiTietVe.View
     public int getItemCount() {
         return list.size();
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvMaChiTietVe, tvEmail, tvTenPhim, tvKhoiChieu, tvPhongChieu, tvGioChieu, tvGheDaChon, tvTongTien, tvThanhToan, tvNgayDat;
         CardView cardViewVe;

@@ -19,7 +19,7 @@
                 android:id="@+id/tvThemPhim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thêm Phim"
+                android:text="Cập Nhật Thông Tin"
                 android:textAlignment="1"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -27,32 +27,20 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="#000000"/>
-<!--            <TextView-->
-<!--                android:id="@+id/tvUpdatePhim"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Update"-->
-<!--                android:visibility="invisible"-->
-<!--                android:textAlignment="1"-->
-<!--                android:gravity="center"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_marginTop="15dp"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                android:textColor="#000000"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvUpdatePhim"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Update"-->
+            <!--                android:visibility="invisible"-->
+            <!--                android:textAlignment="1"-->
+            <!--                android:gravity="center"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:textSize="20sp"-->
+            <!--                android:layout_marginTop="15dp"-->
+            <!--                android:layout_marginBottom="5dp"-->
+            <!--                android:textColor="#000000"/>-->
         </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Loại Phim"
-            android:paddingHorizontal="20dp"
-            android:textColor="#000000"/>
-        <Spinner
-            android:id="@+id/spnLoaiPhim"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginBottom="5dp"/>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputAP"
             android:layout_width="match_parent"
@@ -60,17 +48,54 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
             app:hintTextColor="#000000"
-            android:hint="URL ảnh phim"
+            android:hint="Tên người dùng"
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
             app:startIconDrawable="@drawable/iconimg">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtAnhPhim"
+                android:id="@+id/txtTen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giới tính:"
+                android:paddingLeft="20dp"
+                android:textColor="#000000"/>
+            <Spinner
+                android:id="@+id/spnGioiTinh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputKC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            app:hintTextColor="#000000"
+            android:hint="Ngày sinh"
+            app:errorTextColor="#FF0000"
+            app:boxStrokeColor="@color/black"
+            android:textColorHint="#80000000"
+            android:layout_alignParentRight="true"
+            app:startIconDrawable="@drawable/iconimg">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtNgaySinh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputTP"
@@ -79,15 +104,19 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
             app:hintTextColor="#000000"
-            android:hint="Nhập tên phim"
+            android:hint="Email"
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
             app:startIconDrawable="@drawable/iconimg">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtTenPhim"
+                android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputMT"
@@ -96,57 +125,19 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
             app:hintTextColor="#000000"
-            android:hint="Nhập mô tả"
+            android:hint="Số điện thoại"
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
             app:startIconDrawable="@drawable/iconimg">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtMoTa"
+                android:id="@+id/txtSDT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:inputType="number"
+                android:maxLength="10"
                 android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputGV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
-            app:hintTextColor="#000000"
-            android:hint="Nhập giá vé"
-            app:errorTextColor="#FF0000"
-            app:boxStrokeColor="@color/black"
-            android:textColorHint="#80000000"
-            app:startIconDrawable="@drawable/iconimg">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtGiaVe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputKC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
-            app:hintTextColor="#000000"
-            android:hint="Ngày khởi chiếu"
-            app:errorTextColor="#FF0000"
-            app:boxStrokeColor="@color/black"
-            android:textColorHint="#80000000"
-            android:layout_alignParentRight="true"
-            app:startIconDrawable="@drawable/iconimg">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtKhoiChieu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,10 +154,10 @@
                 android:background="#00000000"
                 android:textStyle="bold" />
             <Button
-                android:id="@+id/btnThem"
+                android:id="@+id/btnCapNhat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thêm"
+                android:text="Cập Nhật"
                 android:textColor="#8692F7"
                 android:background="#00000000"
                 android:textStyle="bold" />

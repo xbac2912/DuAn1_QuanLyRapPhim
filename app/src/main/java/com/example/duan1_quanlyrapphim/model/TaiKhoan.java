@@ -5,6 +5,9 @@ public class TaiKhoan {
     private String tenNguoiDung;
     private String email;
     private String matKhau;
+    private int gioiTinh;
+    private String ngaySinh;
+    private String soDienThoai;
     private int vaiTro;
 
     public TaiKhoan() {
@@ -15,6 +18,30 @@ public class TaiKhoan {
         this.email = email;
         this.matKhau = matKhau;
         this.vaiTro = vaiTro;
+    }
+
+    public int getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(int gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public String getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(String ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
     public int getMaTK() {

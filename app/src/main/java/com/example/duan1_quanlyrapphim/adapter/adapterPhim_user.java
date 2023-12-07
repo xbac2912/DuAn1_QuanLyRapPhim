@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1_quanlyrapphim.ChiTietPhim;
 import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.XacNhanDatVe;
 import com.example.duan1_quanlyrapphim.model.Phim;
@@ -50,7 +51,7 @@ public class adapterPhim_user extends RecyclerView.Adapter<adapterPhim_user.View
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, XacNhanDatVe.class);
+                Intent intent = new Intent(context, ChiTietPhim.class);
                 intent.putExtra("matk", matk);
                 intent.putExtra("maPhim", String.valueOf(list.get(position).getMaPhim()));
                 context.startActivity(intent);

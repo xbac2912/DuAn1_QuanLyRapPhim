@@ -26,11 +26,13 @@ public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHo
     private final Context context;
     private final ArrayList<LichChieu> list;
     private final XacNhanDatVe xacNhanDatVe;
+    private int check;
 
-    public AdapterKhungGio(Context context, ArrayList<LichChieu> list, Activity activity) {
+    public AdapterKhungGio(Context context, ArrayList<LichChieu> list, Activity activity, int check) {
         this.context = context;
         this.list = list;
         xacNhanDatVe  = (XacNhanDatVe) activity;
+        this.check = check;
     }
 
     @NonNull
@@ -40,7 +42,6 @@ public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHo
         View view = inflater.inflate(R.layout.item_ngaychieu, null);
         return new ViewHolder(view);
     }
-    int check = 0;
     int viTri = 0;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
@@ -49,15 +50,17 @@ public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHo
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (check == 0 && viTri == 0) {
+                if (check == 0) {
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
-                    viTri = list.get(position).getMaLichChieu();
+//                    viTri = list.get(position).getMaLichChieu();
+                    check = 1;
                     xacNhanDatVe.getSoGhe(String.valueOf(list.get(position).getMaLichChieu()));
 //                    Toast.makeText(context, "Khung giờ: " + list.get(position).getMaKhungGio(), Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(context, String.valueOf(viTri), Toast.LENGTH_SHORT).show();
-                } else if (check != 0 && viTri == list.get(position).getMaLichChieu()) {
+                } else if (check != 0) {
                     holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
-                    viTri = 0;
+//                    viTri = 0;
+                    check = 0;
                     xacNhanDatVe.getSoGhe("");
                 }
             }
