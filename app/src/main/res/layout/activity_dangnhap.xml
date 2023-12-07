@@ -28,7 +28,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="18dp"
-      android:text="It's delicious, it's cheap, it's fast."
+      android:text="It's convenient, affordable, and fast!"
       android:textColor="@color/black"/>
 
   <EditText
