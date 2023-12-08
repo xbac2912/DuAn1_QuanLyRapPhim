@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,11 +16,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.duan1_quanlyrapphim.Dangnhap;
 import com.example.duan1_quanlyrapphim.R;
+import com.example.duan1_quanlyrapphim.ThongTinTaiKhoan;
 import com.example.duan1_quanlyrapphim.TrangChu_User;
+import com.example.duan1_quanlyrapphim.dao.daoTaiKhoan;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class fragment_taikhoan extends Fragment {
     TrangChu_User trangChuUser;
+    String matk;
+    daoTaiKhoan daoTaiKhoan;
+    String tenNguoiDung;
+    TextView tenHienThi;
+    TextInputEditText txtMatKhauCu, txtMatKhauMoi, txtMatKhauXN;
+    String matKhauCu, matKhauMoi, matKhauXacNhan;
     public fragment_taikhoan() {
         // Required empty public constructor
     }
@@ -29,8 +38,21 @@ public class fragment_taikhoan extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_taikhoan, container, false);
+        daoTaiKhoan = new daoTaiKhoan(getContext());
         trangChuUser = (TrangChu_User) getActivity();
-        view.findViewById(R.id.btnDangXuat).setOnClickListener(new View.OnClickListener() {
+        matk = trangChuUser.getMaTK();
+        tenNguoiDung = daoTaiKhoan.getTen(matk);
+        tenHienThi = view.findViewById(R.id.tvTenHienThi);
+        tenHienThi.setText(tenNguoiDung);
+        view.findViewById(R.id.tvThongTinTK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ThongTinTaiKhoan.class);
+                intent.putExtra("matk", matk);
+                startActivity(intent);
+            }
+        });
+        view.findViewById(R.id.tvDangXuat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenDialog_DangXuat();
@@ -51,11 +73,9 @@ public class fragment_taikhoan extends Fragment {
         Dialog dialog = builder.create();
 //        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
-        TextInputEditText txtMatKhauCu = view.findViewById(R.id.txtMatKhauCu);
-        TextInputEditText txtMatKhauMoi = view.findViewById(R.id.txtMatKhauMoi);
-        TextInputEditText txtMatKhauXacNhan = view.findViewById(R.id.txtMatKhauXacNhan);
-        String maTK = trangChuUser.getMaTK();
+        txtMatKhauCu = view.findViewById(R.id.txtMatKhauCu);
+        txtMatKhauMoi = view.findViewById(R.id.txtMatKhauMoi);
+        txtMatKhauXN = view.findViewById(R.id.txtMatKhauXacNhan);
         view.findViewById(R.id.btnHuy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,25 +85,24 @@ public class fragment_taikhoan extends Fragment {
         view.findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                matKhauCu = txtMatKhauCu.getText().toString().trim();
+                matKhauMoi = txtMatKhauMoi.getText().toString().trim();
+                matKhauXacNhan = txtMatKhauXN.getText().toString().trim();
 
-//                String matKhauCu = txtMatKhauCu.getText().toString().trim();
-//                matKhauMoi = txtMatKhauMoi.getText().toString().trim();
-//                String matKhauXacNhan = txtMatKhauXacNhan.getText().toString().trim();
-//
-//                if (matKhauCu.isEmpty() || matKhauMoi.isEmpty() || matKhauXacNhan.isEmpty()) {
-//                    Toast.makeText(MainActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    if (daoThuThu.checklogin( maTT, matKhauCu)) {
-//                        if (matKhauMoi.equals(matKhauXacNhan)) {
-//                            dialog.dismiss();
-//                            openDialog_XacNhan();
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "Mật khẩu mới không khớp nhau", Toast.LENGTH_SHORT).show();
-//                        }
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+                if (matKhauCu.isEmpty() || matKhauMoi.isEmpty() || matKhauXacNhan.isEmpty()) {
+                    Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (daoTaiKhoan.checkMK(matk, matKhauCu)) {
+                        if (matKhauMoi.equals(matKhauXacNhan)) {
+                            dialog.dismiss();
+                            openDialog_XacNhan();
+                        } else {
+                            Toast.makeText(getContext(), "Mật khẩu mới không khớp nhau", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
@@ -99,6 +118,41 @@ public class fragment_taikhoan extends Fragment {
             }
         });
         builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
+    public void loadDL() {
+        tenNguoiDung = daoTaiKhoan.getTen(matk);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadDL();
+        tenHienThi.setText(tenNguoiDung);
+    }
+    public void openDialog_XacNhan() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setIcon(R.drawable.warning);
+        builder.setTitle("Warning");
+        builder.setMessage("Bạn có chắc chắn muốn đổi mật khẩu ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (daoTaiKhoan.doiMatKhau( matk, matKhauMoi)) {
+                    daoTaiKhoan.selectAll();
+                    dialog.dismiss();
+                    Toast.makeText(getContext(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

@@ -3,9 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/card_view"
-    app:cardElevation="5dp"
+    app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
-    app:cardCornerRadius="5dp"
     android:layout_gravity="center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -13,14 +12,14 @@
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:gravity="center"
-        android:background="#4D000000"
+        android:background="#25000000"
         android:orientation="vertical">
         <TextView
             android:id="@+id/tvNgayChieu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20/11/2023"
-            android:textColor="@color/black"
+            android:textColor="#CD000000"
             android:textStyle="bold"
             android:textSize="15sp"/>
     </LinearLayout>

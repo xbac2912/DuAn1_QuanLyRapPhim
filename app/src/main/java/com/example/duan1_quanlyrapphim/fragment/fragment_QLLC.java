@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,8 +41,11 @@ import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.Phong;
 import com.example.duan1_quanlyrapphim.model.soGhe;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 public class fragment_QLLC extends Fragment {
@@ -60,6 +64,8 @@ public class fragment_QLLC extends Fragment {
     DaoKhungGio daoKhungGio;
     daoPhim daoPhim;
     DaoGheNgoi daoGheNgoi;
+    android.icu.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    int day, month, year;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -160,19 +166,34 @@ public class fragment_QLLC extends Fragment {
                         lichChieu.setMaPhim(daoPhim.getMaPhim(tenPhim));
                         lichChieu.setMaKhungGio(daoKhungGio.getMaKhungGio(khungGio));
                         lichChieu.setKhungGio(khungGio);
-                        if (daoLichChieu.checkLC(lichChieu.getNgayChieu(), String.valueOf(lichChieu.getMaPhong()), String.valueOf(lichChieu.getMaKhungGio()))) {
-                            Toast.makeText(getContext(), "Lịch chiếu đã tồn tại", Toast.LENGTH_SHORT).show();
-                        } else if (daoLichChieu.insert(lichChieu)){
-                            for (int i = 1; i<=20;i++) {
-                                daoGheNgoi.insert(new soGhe( i, 1, lichChieu.getMaLichChieu()));
+
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                        GregorianCalendar gregorianCalendar = new GregorianCalendar( year, month, day);
+                        String ngayMua = sdf.format(gregorianCalendar.getTime());
+                        try {
+                            Date homNay = sdf.parse(ngayMua);
+                            Date ngayNhapVao = sdf.parse(edtNgayChieu.getText().toString());
+                            if (ngayNhapVao.before(homNay)) {
+                                Toast.makeText(getContext(), "Ngày này đã qua vui lòng chọn ngày khác", Toast.LENGTH_SHORT).show();
+                            } else if (daoLichChieu.checkLC(lichChieu.getNgayChieu(), String.valueOf(lichChieu.getMaPhong()), String.valueOf(lichChieu.getMaKhungGio()))) {
+                                Toast.makeText(getContext(), "Lịch chiếu đã tồn tại", Toast.LENGTH_SHORT).show();
+                            } else if (daoLichChieu.insert(lichChieu)){
+                                for (int i = 1; i<=20;i++) {
+                                    daoGheNgoi.insert(new soGhe( i, 1, lichChieu.getMaLichChieu()));
+                                }
+                                list.clear();
+                                list.addAll(daoLichChieu.selectAll());
+                                adapterLichChieu.notifyDataSetChanged();
+                                dialog.dismiss();
+                                Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Lỗi thêm", Toast.LENGTH_SHORT).show();
                             }
-                            list.clear();
-                            list.addAll(daoLichChieu.selectAll());
-                            adapterLichChieu.notifyDataSetChanged();
-                            dialog.dismiss();
-                            Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Lỗi thêm", Toast.LENGTH_SHORT).show();
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 });
@@ -240,14 +261,17 @@ public class fragment_QLLC extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                ngay = selectedYear + "/" + (selectedMonth + 1) + "/" + selectedDay; // Tháng trong and từ 0-11
-                edtNgayChieu.setText(ngay); // Hiển thị ngày đã chọn
-            }
-        }, year, month, day);
-
-        datePickerDialog.show();
+        DatePickerDialog d = new DatePickerDialog(getContext(), 0, date, year, month, day);
+        d.show();
     }
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int Year, int Month, int dayOfMonth) {
+            day = dayOfMonth;
+            month = Month;
+            year = Year;
+            GregorianCalendar gregorianCalendar = new GregorianCalendar( year, month, day);
+            edtNgayChieu.setText(sdf.format(gregorianCalendar.getTime()));
+        }
+    };
 }

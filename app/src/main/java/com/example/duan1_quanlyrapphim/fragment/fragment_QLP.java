@@ -1,8 +1,10 @@
 package com.example.duan1_quanlyrapphim.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -35,6 +38,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class fragment_QLP extends Fragment {
     RecyclerView recyclerView;
@@ -46,6 +50,8 @@ public class fragment_QLP extends Fragment {
     daoTheLoai daoTheLoai;
     EditText edtSearch;
     int maTheLoai;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    int ngay, thang, nam;
     public fragment_QLP() {
         // Required empty public constructor
     }
@@ -127,6 +133,17 @@ public class fragment_QLP extends Fragment {
 
             }
         });
+        txtKhoiChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar lich = Calendar.getInstance();
+                ngay = lich.get(Calendar.DAY_OF_MONTH);
+                thang = lich.get(Calendar.MONTH);
+                nam = lich.get(Calendar.YEAR);
+                DatePickerDialog d = new DatePickerDialog(getContext(), 0, dateKC, nam, thang, ngay);
+                d.show();
+            }
+        });
         view.findViewById(R.id.btnThem).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,14 +152,18 @@ public class fragment_QLP extends Fragment {
                 String moTa = txtMoTa.getText().toString().trim();
                 String giaVe = txtGiaVe.getText().toString().trim();
                 String khoiChieu = txtKhoiChieu.getText().toString().trim();
-                if (daoPhim.insert(new Phim(anhPhim, tenPhim, moTa, Integer.valueOf(giaVe), khoiChieu, 0, maTheLoai))) {
-                    list.clear();
-                    list.addAll(daoPhim.selectAll());
-                    dialog.dismiss();
-                    adapterPhim_admin.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                if (anhPhim.isEmpty() || tenPhim.isEmpty() || moTa.isEmpty() || giaVe.isEmpty() || khoiChieu.isEmpty()) {
+                    Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    if (daoPhim.insert(new Phim(anhPhim, tenPhim, moTa, Integer.valueOf(giaVe), khoiChieu, 0, maTheLoai))) {
+                        list.clear();
+                        list.addAll(daoPhim.selectAll());
+                        dialog.dismiss();
+                        adapterPhim_admin.notifyDataSetChanged();
+                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -164,4 +185,14 @@ public class fragment_QLP extends Fragment {
         adapterPhim_admin = new adapterPhim_admin(getContext(), listSearch);
         recyclerView.setAdapter(adapterPhim_admin);
     }
+    DatePickerDialog.OnDateSetListener dateKC = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            ngay = dayOfMonth;
+            thang = month;
+            nam = year;
+            GregorianCalendar gregorianCalendar = new GregorianCalendar( nam, thang, ngay);
+            txtKhoiChieu.setText(sdf.format(gregorianCalendar.getTime()));
+        }
+    };
 }

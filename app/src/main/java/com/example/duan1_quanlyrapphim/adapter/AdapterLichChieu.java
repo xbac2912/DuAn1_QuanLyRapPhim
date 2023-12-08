@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,11 @@ import com.example.duan1_quanlyrapphim.model.LichChieu;
 import com.example.duan1_quanlyrapphim.model.Phim;
 import com.example.duan1_quanlyrapphim.model.Phong;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.ViewHolder> {
     private final Context context;
@@ -50,8 +54,8 @@ public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.View
     DaoPhong daoPhong;
     daoPhim daoPhim;
     DaoKhungGio daoKhungGio;
-
-
+    android.icu.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    int day, month, year;
     public AdapterLichChieu(Context context, ArrayList<LichChieu> list) {
         this.context = context;
         this.list = list;
@@ -169,24 +173,36 @@ public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.View
                             return;
                         }
 
-
-
                         lichChieu.setMaPhong(daoPhong.layMaBangSoPhong(phong));
                         lichChieu.setNgayChieu(ngay);
                         lichChieu.setMaPhim(daoPhim.getMaPhim(tenPhim));
                         lichChieu.setMaKhungGio(daoKhungGio.getMaKhungGio(khungGio));
                         lichChieu.setKhungGio(khungGio);
-
-
-                        if (daoLichChieu.update(lichChieu)){
-                            list.clear();
-                            list.addAll(daoLichChieu.selectAll());
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                            Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();
+                        //
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                        GregorianCalendar gregorianCalendar = new GregorianCalendar( year, month, day);
+                        String ngayMua = sdf.format(gregorianCalendar.getTime());
+                        try {
+                            Date homNay = sdf.parse(ngayMua);
+                            Date ngayNhapVao = sdf.parse(edtNgayChieu.getText().toString());
+                            if (ngayNhapVao.before(homNay)) {
+                                Toast.makeText(context, "Ngày này đã qua vui lòng chọn ngày khác", Toast.LENGTH_SHORT).show();
+                            } else if (daoLichChieu.update(lichChieu)){
+                                list.clear();
+                                list.addAll(daoLichChieu.selectAll());
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                                Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context, "Lỗi cập nhật", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
                         }
+                        //
                     }
                 });
                 btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -238,15 +254,8 @@ public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.View
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                ngay = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay; // Tháng trong and từ 0-11
-                edtNgayChieu.setText(ngay); // Hiển thị ngày đã chọn
-            }
-        }, year, month, day);
-
-        datePickerDialog.show();
+        DatePickerDialog d = new DatePickerDialog(context, 0, date, year, month, day);
+        d.show();
     }
 
     @Override
@@ -270,4 +279,14 @@ public class AdapterLichChieu extends RecyclerView.Adapter<AdapterLichChieu.View
 
         }
     }
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int Year, int Month, int dayOfMonth) {
+            day = dayOfMonth;
+            month = Month;
+            year = Year;
+            GregorianCalendar gregorianCalendar = new GregorianCalendar( year, month, day);
+            edtNgayChieu.setText(sdf.format(gregorianCalendar.getTime()));
+        }
+    };
 }

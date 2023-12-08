@@ -54,7 +54,6 @@ public class Fragment_DoanhThu extends Fragment {
             @Override
             public void onClick(View v) {
                 Calendar lich = Calendar.getInstance();
-
                 ngay = lich.get(Calendar.DAY_OF_MONTH);
                 thang = lich.get(Calendar.MONTH);
                 nam = lich.get(Calendar.YEAR);

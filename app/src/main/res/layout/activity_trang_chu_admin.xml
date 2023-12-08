@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                app:titleTextColor="@color/white"
                 android:background="#8692F7"/>
             <FrameLayout
                 android:id="@+id/frame_layout"

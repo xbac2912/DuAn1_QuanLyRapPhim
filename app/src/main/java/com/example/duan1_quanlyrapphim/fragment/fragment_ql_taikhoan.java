@@ -42,7 +42,7 @@ public class fragment_ql_taikhoan extends Fragment {
         edtSearch = v.findViewById(R.id.edtSearch);
 
         daotaikhoan = new daoTaiKhoan(getContext());
-        listTk = daotaikhoan.selectAll();
+        listTk = daotaikhoan.selectAll_admin();
         adapter_ql = new Adapter_ql_taikhoan(listTk, getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
 

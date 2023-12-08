@@ -192,4 +192,31 @@ public class daoPhim {
         }
         return giaVe;
     }
+    public ArrayList<Phim> selectAllPhim(String maPHim) {
+        ArrayList<Phim> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT * FROM phim INNER JOIN theloai ON phim.matheloai=theloai.matheloai WHERE phim.trangthai=0 AND phim.maphim=?", new String[]{maPHim});
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    Phim phim = new Phim();
+                    phim.setMaPhim(cursor.getInt(0));
+                    phim.setImgPhim(cursor.getString(1));
+                    phim.setTenPhim(cursor.getString(2));
+                    phim.setMoTa(cursor.getString(3));
+                    phim.setGiaVe(cursor.getInt(4));
+                    phim.setKhoiChieu(cursor.getString(5));
+                    phim.setTrangThai(cursor.getInt(6));
+                    phim.setMaTheLoai(cursor.getInt(7));
+                    phim.setTenTheLoai(cursor.getString(10));
+                    list.add(phim);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list;
+    }
 }

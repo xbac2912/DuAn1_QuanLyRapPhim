@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    app:cardCornerRadius="10dp">
+    android:layout_margin="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,14 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Xác nhận thông tin đặt vé"
+            android:text="Xác Nhận Thông Tin Đặt Vé"
             android:textColor="#6672FF"
             android:textSize="24sp"
+            android:layout_marginVertical="10dp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -214,7 +215,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="15dp"
+            android:paddingHorizontal="10dp"
             android:gravity="end"
             android:orientation="horizontal">
 

@@ -85,6 +85,7 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
                 onBackPressed();
             }
         });
+        //
         daoLichChieu = new DAOLichChieu(this);
         daoPhim = new daoPhim(this);
         daoGheNgoi = new DaoGheNgoi(this);
@@ -108,7 +109,7 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
         //
         rcvKhungGio = findViewById(R.id.rcvKhungGio);
         listKhungGio = daoLichChieu.KhungGio(maPhim, "");
-        adapterKhungGio = new AdapterKhungGio(this, listKhungGio, this);
+        adapterKhungGio = new AdapterKhungGio(this, listKhungGio, this, 0);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rcvKhungGio.setLayoutManager(linearLayoutManager1);
         rcvKhungGio.setAdapter(adapterKhungGio);
@@ -146,7 +147,8 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
         listKhungGio.clear();
         listKhungGio.addAll(daoLichChieu.KhungGio( maPhim, ngay));
         Ngay = ngay;
-        adapterKhungGio.notifyDataSetChanged();
+        adapterKhungGio = new AdapterKhungGio(this, listKhungGio, this, 0);
+        rcvKhungGio.setAdapter(adapterKhungGio);
     }
     public void getSoGhe(String maLichChieu) {
         listSoGhe.clear();
@@ -231,7 +233,7 @@ public class XacNhanDatVe extends AppCompatActivity implements com.example.duan1
         view.findViewById(R.id.btnHuy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listGheChon.clear();
+//                listGheChon.clear();
                 dialog.dismiss();
             }
         });
