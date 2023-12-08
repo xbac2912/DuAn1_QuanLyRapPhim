@@ -20,6 +20,16 @@ public class TaiKhoan {
         this.vaiTro = vaiTro;
     }
 
+    public TaiKhoan(String tenNguoiDung, String email, String matKhau, int gioiTinh, String ngaySinh, String soDienThoai, int vaiTro) {
+        this.tenNguoiDung = tenNguoiDung;
+        this.email = email;
+        this.matKhau = matKhau;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.soDienThoai = soDienThoai;
+        this.vaiTro = vaiTro;
+    }
+
     public int getGioiTinh() {
         return gioiTinh;
     }

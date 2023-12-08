@@ -55,7 +55,7 @@ public class ChiTietPhim extends AppCompatActivity {
         tvTenPhim.setText(list.get(0).getTenPhim());
         tvTenTheLoai.setText(list.get(0).getTenTheLoai());
         tvKhoiChieu.setText(list.get(0).getKhoiChieu());
-        tvGiaVe.setText(String.valueOf(list.get(0).getGiaVe()));
+        tvGiaVe.setText(list.get(0).getGiaVe() + " VNĐ");
         tvMoTa.setText(list.get(0).getMoTa());
         btnDatVe.setOnClickListener(new View.OnClickListener() {
             @Override

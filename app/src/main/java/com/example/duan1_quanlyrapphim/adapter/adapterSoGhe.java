@@ -52,7 +52,7 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
         if (list.get(position).getTrangThai() == 0) {
             holder.layout.setBackground(new ColorDrawable(Color.parseColor("#FF0000")));
         } else if (list.get(position).getTrangThai() == 1) {
-            holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
+            holder.layout.setBackground(new ColorDrawable(Color.parseColor("#25000000")));
         }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class adapterSoGhe extends RecyclerView.Adapter<adapterSoGhe.ViewHolder> 
                     list.get(position).setTrangThai(1);
                     listGhe.remove(soGhe);
                     dataClickListener.onDataClick(listGhe);
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#25000000")));
                 }
             }
         });

@@ -84,9 +84,22 @@ public class ThongTinTaiKhoan extends AppCompatActivity {
         } else if (list.get(0).getGioiTinh() == 2){
             tvGioiTinh.setText("Không xác định");
         }
-        tvNgaySinh.setText(list.get(0).getNgaySinh());
+        if (list.get(0).getNgaySinh().isEmpty()) {
+            tvNgaySinh.setText("Chưa cập nhật");
+            tvNgaySinh.setTextColor(Color.parseColor("#FF0000"));
+        } else {
+            tvNgaySinh.setText(list.get(0).getNgaySinh());
+//            tvNgaySinh.setTextColor(Color.parseColor("#FF000000"));
+        }
+        if (list.get(0).getSoDienThoai().isEmpty()) {
+            tvSDT.setText("Chưa cập nhật");
+            tvSDT.setTextColor(Color.parseColor("#FF0000"));
+        } else {
+            tvSDT.setText(list.get(0).getSoDienThoai());
+//            tvSDT.setTextColor(Color.parseColor(" #FF000000"));
+        }
         tvEmail.setText(list.get(0).getEmail());
-        tvSDT.setText(list.get(0).getSoDienThoai());
+
     }
     public void OpenDialog_Update() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -151,25 +164,20 @@ public class ThongTinTaiKhoan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ten = txtTen.getText().toString().trim();
-                String email = txtEmail.getText().toString().trim();
                 String ngaySinh = txtNgaySinh.getText().toString().trim();
                 String sdt = txtSDT.getText().toString().trim();
-                if (ten.isEmpty() || email.isEmpty() || ngaySinh.isEmpty() || sdt.isEmpty()) {
-                    Toast.makeText(ThongTinTaiKhoan.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                taiKhoan.setTenNguoiDung(ten);
+                taiKhoan.setSoDienThoai(sdt);
+                taiKhoan.setNgaySinh(ngaySinh);
+                taiKhoan.setGioiTinh(gioiTinh);
+                if (daoTaiKhoan.update(taiKhoan)) {
+                    list.clear();
+                    list.addAll(daoTaiKhoan.selectAll_MaTK(matk));
+                    dialog.dismiss();
+                    SetText();
+                    Toast.makeText(ThongTinTaiKhoan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                 } else {
-                    taiKhoan.setTenNguoiDung(ten);
-                    taiKhoan.setSoDienThoai(sdt);
-                    taiKhoan.setNgaySinh(ngaySinh);
-                    taiKhoan.setGioiTinh(gioiTinh);
-                    if (daoTaiKhoan.update(taiKhoan)) {
-                        list.clear();
-                        list.addAll(daoTaiKhoan.selectAll_MaTK(matk));
-                        dialog.dismiss();
-                        SetText();
-                        Toast.makeText(ThongTinTaiKhoan.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ThongTinTaiKhoan.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(ThongTinTaiKhoan.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -215,8 +223,20 @@ public class ThongTinTaiKhoan extends AppCompatActivity {
         } else if (list.get(0).getGioiTinh() == 2){
             tvGioiTinh.setText("Không xác định");
         }
-        tvNgaySinh.setText(list.get(0).getNgaySinh());
         tvEmail.setText(list.get(0).getEmail());
-        tvSDT.setText(list.get(0).getSoDienThoai());
+        if (list.get(0).getNgaySinh().isEmpty()) {
+            tvNgaySinh.setText("Chưa cập nhật");
+            tvNgaySinh.setTextColor(Color.parseColor("#FF0000"));
+        } else {
+            tvNgaySinh.setText(list.get(0).getNgaySinh());
+            tvNgaySinh.setTextColor(Color.parseColor("#FF000000"));
+        }
+        if (list.get(0).getSoDienThoai().isEmpty()) {
+            tvSDT.setText("Chưa cập nhật");
+            tvSDT.setTextColor(Color.parseColor("#FF0000"));
+        } else {
+            tvSDT.setText(list.get(0).getSoDienThoai());
+            tvSDT.setTextColor(Color.parseColor("#FF000000"));
+        }
     }
 }

@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,13 +21,18 @@ import com.example.duan1_quanlyrapphim.R;
 import com.example.duan1_quanlyrapphim.XacNhanDatVe;
 import com.example.duan1_quanlyrapphim.model.LichChieu;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.ViewHolder> {
     private final Context context;
     private final ArrayList<LichChieu> list;
     private final XacNhanDatVe xacNhanDatVe;
-
+    android.icu.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    int day, month, year;
 
     public adapterNgayChieu(Context context, ArrayList<LichChieu> list, Activity activity) {
         this.context = context;
@@ -49,17 +56,31 @@ public class adapterNgayChieu extends RecyclerView.Adapter<adapterNgayChieu.View
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (check == 0 && viTri == 0) {
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
-                    check++;
-                    viTri = list.get(position).getMaLichChieu();
-                    xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), String.valueOf(list.get(position).getNgayChieu()));
-                } else if (check != 0 && viTri == list.get(position).getMaLichChieu()) {
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
-                    check = 0;
-                    viTri = 0;
-                    xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), "");
-                    xacNhanDatVe.getSoGhe("");
+                Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                GregorianCalendar gregorianCalendar = new GregorianCalendar( year, month, day);
+                String ngayMua = sdf.format(gregorianCalendar.getTime());
+                try {
+                    Date homNay = sdf.parse(ngayMua);
+                    Date ngayNhapVao = sdf.parse(list.get(position).getNgayChieu());
+                    if (ngayNhapVao.before(homNay)) {
+                        Toast.makeText(context, "Xin lỗi lịch này đã ngừng chiếu", Toast.LENGTH_SHORT).show();
+                    } else if (check == 0 && viTri == 0) {
+                        holder.layout.setBackground(new ColorDrawable(Color.parseColor("#52DF13")));
+                        check++;
+                        viTri = list.get(position).getMaLichChieu();
+                        xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), String.valueOf(list.get(position).getNgayChieu()));
+                    } else if (check != 0 && viTri == list.get(position).getMaLichChieu()) {
+                        holder.layout.setBackground(new ColorDrawable(Color.parseColor("#25000000")));
+                        check = 0;
+                        viTri = 0;
+                        xacNhanDatVe.getKhungGio(String.valueOf(list.get(position).getMaPhim()), "");
+                        xacNhanDatVe.getSoGhe("");
+                    }
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });

@@ -46,7 +46,7 @@ public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvNgayChieu.setText(String.valueOf(list.get(position).getKhungGio()));
-        holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
+        holder.layout.setBackground(new ColorDrawable(Color.parseColor("#25000000")));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +58,7 @@ public class AdapterKhungGio extends RecyclerView.Adapter<AdapterKhungGio.ViewHo
 //                    Toast.makeText(context, "Khung giờ: " + list.get(position).getMaKhungGio(), Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(context, String.valueOf(viTri), Toast.LENGTH_SHORT).show();
                 } else if (check != 0) {
-                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#4D000000")));
+                    holder.layout.setBackground(new ColorDrawable(Color.parseColor("#25000000")));
 //                    viTri = 0;
                     check = 0;
                     xacNhanDatVe.getSoGhe("");

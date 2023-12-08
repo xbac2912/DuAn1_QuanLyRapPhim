@@ -56,7 +56,7 @@ public class Dangky extends AppCompatActivity {
                 } else {
                     if (daoTaiKhoan.checkEmail(email)) {
                         Toast.makeText(Dangky.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
-                    } else if (daoTaiKhoan.insert(new TaiKhoan(name, email, pass, 1))) {
+                    } else if (daoTaiKhoan.insert(new TaiKhoan(name, email, pass, 2, "", "", 1))) {
                         Toast.makeText(Dangky.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Dangky.this, Dangnhap.class));
                     } else {

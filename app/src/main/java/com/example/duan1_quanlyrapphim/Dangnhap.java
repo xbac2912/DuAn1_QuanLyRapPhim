@@ -50,6 +50,8 @@ public class Dangnhap extends AppCompatActivity {
                     luuMatKhau(email, pass, chkNhoMatKhau.isChecked());
                     startActivity(intent);
                     Toast.makeText(Dangnhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                }  else if (daoTaiKhoan.checklogin(email, pass, 3)) {
+                    Toast.makeText(Dangnhap.this, "Tài khoản đã bị khóa", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Dangnhap.this, "Tài khoản hoặc mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
                 }
