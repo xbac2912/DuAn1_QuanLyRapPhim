@@ -58,7 +58,7 @@
             app:errorTextColor="#FF0000"
             app:boxStrokeColor="@color/black"
             android:textColorHint="#80000000"
-            app:startIconDrawable="@drawable/iconimg">
+            app:startIconDrawable="@drawable/theloai_icon">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_TenTL"
                 android:layout_width="match_parent"
